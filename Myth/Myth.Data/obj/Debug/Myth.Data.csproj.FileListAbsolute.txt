@@ -1,0 +1,17 @@
+C:\Users\steph\source\repos\Myth\Myth.Data\bin\Debug\Myth.Data.dll.config
+C:\Users\steph\source\repos\Myth\Myth.Data\bin\Debug\Myth.Data.dll
+C:\Users\steph\source\repos\Myth\Myth.Data\bin\Debug\Myth.Data.pdb
+C:\Users\steph\source\repos\Myth\Myth.Data\bin\Debug\Dapper.dll
+C:\Users\steph\source\repos\Myth\Myth.Data\bin\Debug\EntityFramework.dll
+C:\Users\steph\source\repos\Myth\Myth.Data\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\steph\source\repos\Myth\Myth.Data\bin\Debug\Myth.Domain.dll
+C:\Users\steph\source\repos\Myth\Myth.Data\bin\Debug\Myth.Domain.pdb
+C:\Users\steph\source\repos\Myth\Myth.Data\bin\Debug\Myth.Domain.dll.config
+C:\Users\steph\source\repos\Myth\Myth.Data\bin\Debug\Dapper.xml
+C:\Users\steph\source\repos\Myth\Myth.Data\bin\Debug\EntityFramework.xml
+C:\Users\steph\source\repos\Myth\Myth.Data\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\steph\source\repos\Myth\Myth.Data\obj\Debug\Myth.Data.csprojAssemblyReference.cache
+C:\Users\steph\source\repos\Myth\Myth.Data\obj\Debug\Myth.Data.csproj.CoreCompileInputs.cache
+C:\Users\steph\source\repos\Myth\Myth.Data\obj\Debug\Myth.Data.csproj.CopyComplete
+C:\Users\steph\source\repos\Myth\Myth.Data\obj\Debug\Myth.Data.dll
+C:\Users\steph\source\repos\Myth\Myth.Data\obj\Debug\Myth.Data.pdb

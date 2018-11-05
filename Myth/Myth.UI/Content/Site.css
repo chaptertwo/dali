@@ -1,0 +1,291 @@
+﻿body {
+    padding-top: 110px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 25px;
+    padding-right: 25px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+.backgroundColor {
+    background-color:aliceblue;
+}
+
+/*========================layouts*/
+.wireframe {
+    outline: 1px dotted gray;
+    padding: 20px;
+}
+
+.book {
+    margin-top: 20px;
+    text-align: center;
+    font-family: 'Goudy Bookletter 1911', serif;
+    font-size: medium;
+    margin-bottom: 20px;
+}
+
+.accordion-buttons {
+    color: transparent;
+    text-shadow: -4px 4px hsla(0, 0%, 70%, .4), -3px 3px hsla(0, 0%, 60%, .2), -2px 2px hsla(0, 0%, 70%, .2), -1px 1px hsla(0, 0%, 70%, .2), 0px 0px hsla(0, 0%, 50%, .5), 1px -1px hsla(0, 0%, 30%, .6), 2px -2px hsla(0, 0%, 30%, .7), 3px -3px hsla(0, 0%, 32%, .8), 4px -4px hsla(0, 0%, 30%, .9), 5px -5px hsla(0, 0%, 30%, 1.0);
+}
+
+.accordion-headers {
+    color: rgba(255,255,255,.3);
+    text-shadow: 0 0 5px #FFF, 0 0 10px #FFF, 0 0 15px #FFF, 0 0 20px #A3A7AF, 0 0 30px #85A0DD, 0 0 40px #49FF18, 0 0 55px #85A0DD, 0 0 75px #85A0DD
+    /*text-shadow: 0 0 15px rgba(255,255,255,.5), 0 0 10px rgba(255,255,255,.5);*/
+}
+
+/*.mapBorder{
+    outline-style:dotted;
+    outline-width:-500px;
+    border:groove;
+    border:thick;
+    border-color:aliceblue;
+}*/
+
+/*============fonts*/
+.goudy {
+    font-family: 'Goudy Bookletter 1911', serif;
+    font-size: larger;
+}
+
+.muli {
+    font-family: 'Muli', sans-serif;
+    font-size: larger;
+}
+
+.oswald {
+    font-family: 'Oswald', sans-serif;
+    font-size: larger;
+}
+
+.rosa {
+    font-family: 'Rosarivo', serif;
+    font-size: larger;
+}
+
+.btn-outline-success {
+    font-family: 'Goudy Bookletter 1911', serif;
+    font-size: larger;
+    float: right;
+    outline-style: dotted;
+    outline-width: thin;
+    height: 50px;
+    width: 100px;
+    -moz-transform: skew(-3deg, 2deg);
+    -webkit-transform: skew(-3deg, 2deg);
+    -o-transform: skew(-3deg, 2deg);
+    -ms-transform: skew(-3deg, 2deg);
+    transform: skew(-3deg, 2deg);
+}
+
+/*.btn-outline-danger {
+    font-family: 'Goudy Bookletter 1911', serif;
+    font-size: larger;
+    float: left;
+    outline-style: none;
+    height: 50px;
+    width: 100px;
+    -moz-transform: skew(3deg, -2deg);
+    -webkit-transform: skew(3deg, -2deg);
+    -o-transform: skew(3deg, -2deg);
+    -ms-transform: skew(3deg, -2deg);
+    transform: skew(3deg, -2deg);
+}*/
+
+.gameImage {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 200px;
+    height: auto;
+    max-height: 100%;
+    max-width: 100%;
+}
+
+.kingFont {
+    font-family: 'Loved by the King', cursive;
+}
+
+.kingFontTwo {
+    font-family: 'Loved by the King', cursive;
+    /*text-decoration-color:crimson;
+    background-color:black;*/
+}
+
+.amaticFont {
+    font-family: 'Amatic SC', cursive;
+    font-size:larger;
+}
+/*font-family: 'Amatic SC', cursive;
+font-family: 'Satisfy', cursive;
+font-family: 'Kaushan Script', cursive;
+font-family: 'Averia Libre', cursive;
+font-family: 'Loved by the King', cursive;
+font-family: 'Press Start 2P', cursive;*/
+
+.navbarItems {
+    font-family: 'Loved by the King', cursive;
+    font-size: x-large;
+    /*padding-top: 35%;*/
+    /*float: initial;
+    display:inline-block;*/
+    margin-left:10px;
+    margin-right:20px;
+    margin-top:5px;
+    
+}
+
+
+.navbar .navbar-nav {
+    display: inline-block;
+    float: none;
+    vertical-align: top;
+    /*height:100px;*/
+}
+
+
+
+.customHeader {
+    color: ghostwhite;
+    font-family: 'Amatic SC', cursive;
+    font-size: larger;
+    font-size: 200%;
+    text-shadow: 0 0 5px #FFF, 0 0 10px #FFF, 0 0 15px #FFF, 0 0 20px #A3A7AF, 0 0 30px #85A0DD, 0 0 40px #49FF18, 0 0 55px #85A0DD, 0 0 75px #85A0DD
+}
+
+.navbar .navbar-collapse {
+    text-align: center;
+    /*margin-top:20px;*/
+    background-image: linear-gradient(to right, rgba(255,0,0,0), rgba(133,160,221,0.6));
+}
+
+.monsterImg {
+    height:100%;
+    max-height:100px;
+    width:100%;
+    max-width:100px;
+
+}
+
+/*image ZOOM CSS=============================================*/
+#myImg {
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+    #myImg:hover {
+        opacity: 0.7;
+    }
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+}
+
+/* Modal Content (Image) */
+.modal-content {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+}
+
+/* Caption of Modal Image (Image Text) - Same Width as the Image */
+#caption {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+    text-align: center;
+    color: #ccc;
+    padding: 10px 0;
+    height: 150px;
+}
+
+/* Add Animation - Zoom in the Modal */
+.modal-content, #caption {
+    animation-name: zoom;
+    animation-duration: 0.6s;
+}
+
+@keyframes zoom {
+    from {
+        transform: scale(0)
+    }
+
+    to {
+        transform: scale(1)
+    }
+}
+
+/* The Close Button */
+.close {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 400px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+    .close:hover,
+    .close:focus {
+        color: #bbb;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+/* 100% Image Width on Smaller Screens */
+@media only screen and (max-width: 700px) {
+    .modal-content {
+        width: 100%;
+    }
+}
+
+/*image css end============================*/
+
+.fixList {
+    margin: 0;
+    padding-bottom: 15px;
+    padding-top: 15px;
+    vertical-align: middle;
+    line-height: 70px;
+}
+
+span.field-validation-error {
+    color: red;
+}
+
+.field-validation-error {
+    color: red;
+}

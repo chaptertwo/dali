@@ -1,0 +1,92 @@
+﻿@model Myth.UI.Models.CreateCreatureVM
+
+
+<h2>EditCreature</h2>
+<h1 class="amaticFont">Edit Creature</h1>
+
+<div class="container-fluid wireframe">
+    @using (Html.BeginForm("EditCreature", "Create", FormMethod.Post))
+    {
+        @Html.ValidationSummary()
+        @Html.HiddenFor(a => a.Creature.CreatureId)
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.LabelFor(a => a.Creature.CreatureName)
+                            @Html.TextBoxFor(a => a.Creature.CreatureName, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(a => a.Creature.CreatureName, "", new { @style = "color:red" })
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.LabelFor(a => a.Types)
+                            @Html.DropDownListFor(a => a.SelectTypeId, Model.TypeList, "", new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.LabelFor(a => a.Creature.CreatureDescription)
+                            @Html.TextBoxFor(a => a.Creature.CreatureDescription, new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    @*@Html.LabelFor(a => a.Traits)
+                                    @Html.DropDownListFor(a => a.SelectTraitId, Model.TraitsList, "", new { @class = "form-control" })*@
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label style="font-size:large">Traits: </label>
+
+                                    @for (int i = 0; i < Model.TraitsSelect.Count; i++)
+                                    {
+                                        @Html.HiddenFor(m => Model.TraitsSelect[i].Trait.TraitId)
+                                        <span>@Model.TraitsSelect[i].Trait.TraitName</span>
+                                        @Html.CheckBoxFor(m => Model.TraitsSelect[i].IsSelected)
+                                    }
+                                    @Html.ValidationMessageFor(a => a.TraitsSelect)
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    @Html.LabelFor(a => a.Creature.Picture)
+                                    @Html.TextBoxFor(a => a.Creature.Picture, new { @class = "form-control col" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    @Html.LabelFor(a => a.Nests)
+                                    @Html.DropDownListFor(a => a.SelectNestId, Model.NestList, new { @class = "form-control col" })
+
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-6">
+                                <div class="form-group pull-right">
+                                    <button class="btn btn-primary" type="submit">Save</button><a href="~/Create/Index" class="btn btn-default">Cancel</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    }
+

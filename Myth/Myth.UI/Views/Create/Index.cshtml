@@ -1,0 +1,92 @@
+﻿@model Myth.UI.Models.CreateCreatureVM
+
+@{
+    ViewBag.Title = "Compendium";
+}
+<h1 style="text-align:center; font-size:xx-large" class="amaticFont">Compendium</h1>
+<h1 style="text-align:center; font-size:xx-large" class="kingFont">What brings you here?</h1>
+@if (Request.IsAuthenticated)
+{
+    @Html.ActionLink("Create a Creature", "Creature", "Create", new { @class = "btn btn-primary" })
+    @Html.ActionLink("Create a Trait", "Trait", "Create", new { @class = "btn btn-primary" })
+
+}
+@if (Request.IsAuthenticated && User.Identity.IsAuthenticated && User.IsInRole("admin"))
+{
+    @Html.ActionLink("Create a Nest", "Nest", "Create", new { @class = "btn btn-primary" })
+    @Html.ActionLink("View All Nests", "AllNests", "Create", new { @class = "btn btn-primary" })
+}
+@if (!Request.IsAuthenticated)
+{
+    <h6>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" }) or @Html.ActionLink("Login", "Login", "Account") to create or remove creatures.</h6>
+}
+<div class="wireframe">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Creature Name</th>
+                <th></th>
+                <th align="center">Nest</th>
+                <th></th>
+            </tr>
+        </thead>
+
+        @foreach (var m in Model.Creatures)
+        {
+            <tbody class="fixList">
+                @* need to vertical align this junk *@
+                <tr>
+                    <td valign="middle" style="max-width:65px">
+                        <span><a><b style="font-size:larger">@m.CreatureName</b></a> | <span style="font-size:smaller">Species: </span>@m.Type.Species</span><br /> @*clicking will bring user to the marker.. ID ALSO LIKE TO IMPROVE THE ROWS, ADD TYPE AD DESCRIPTION.*@
+                        @foreach (var t in m.Traits)
+                        {
+                            <span>@t.TraitName |  </span>
+                        }
+                        <p><u>@m.Type.TypeName</u><br /><p><em>"@m.Type.TypeDescription"</em><p></p>
+                    </td>
+                    <td valign="middle" align="center" style="max-width:60px">
+                        @Html.ActionLink("Edit", "EditCreature", "Create", new { id = m.CreatureId }, new { @class = "btn btn-primary" })@*//need to add creature id*@
+                        @Html.ActionLink("Delete", "DeleteCreature", "Create", new { id = m.CreatureId }, new { @class = "btn btn-danger", @onclick = "return confirm('Are you sure you want to delete this creature? All footprints will be gone forever..');" })
+                    </td>
+                    <td valign="middle" align="center" style="width:30px">
+                        <a>@m.Nest.NestName</a>
+                    </td>
+                    <td valign="bottom" align="center" style="align-items:center">
+                        <img id="@($"img{m.CreatureId}")" class="monsterImg shadow-lg" src="@m.Picture" />
+                        <div id="@($"modal{m.CreatureId}")" class="modal">
+                            <img class="modal-content" id="@($"content{m.CreatureId}")">
+                            <div id="caption">@m.CreatureDescription</div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+
+        }
+    </table>
+
+
+
+</div>
+<script type="text/javascript">
+
+
+    //MODAL PICTURE POP-OUT AND CLOSE===============================
+    @foreach(var m in Model.Creatures)
+    {
+        <text>var modal = document.getElementById("@($"modal{m.CreatureId}")");</text>
+        <text>var img = document.getElementById("@($"img{m.CreatureId}")");</text>
+    <text>var modalImg = document.getElementById("@($"content{m.CreatureId}")");</text>
+      <text>img.onclick = function() {
+            modal.style.display = "block";
+            modalImg.src = this.src;
+        }
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }</text>
+
+    }
+
+
+</script>

@@ -1,0 +1,40 @@
+﻿@model Myth.Domain.Models.Nest
+@{
+    ViewBag.Title = "EditNest";
+}
+
+<h1 class="amaticFont">Edit a Nest?</h1>
+<div class="container-fluid wireframe">
+    @using (Html.BeginForm())
+    {
+        @Html.ValidationSummary()
+        <div class="row">
+            <div class="col-md-12">
+                @Html.LabelFor(a => a.NestName)
+                @Html.HiddenFor(a => a.NestId)
+                @Html.TextBoxFor(a => a.NestName)
+                @Html.ValidationMessageFor(a => a.NestName)
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                @Html.LabelFor(a => a.NestLat)
+                @Html.TextBoxFor(a => a.NestLat, new { @class = "form-control" })
+                @Html.ValidationMessageFor(a => a.NestLat)
+            </div>
+
+            <div class="col-md-6">
+                @Html.LabelFor(a => a.NestLong)
+                @Html.TextBoxFor(a => a.NestLong, new { @class = "form-control" })
+                @Html.ValidationMessageFor(a => a.NestLong)
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-row">
+                    <div class="form-group pull-right">
+                        <button class="btn btn-primary" type="submit">Save</button><a href="~/Create/Index" class="btn btn-default">Cancel</a>
+                    </div></div></div></div>
+
+                    }
+

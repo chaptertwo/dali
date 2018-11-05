@@ -1,0 +1,772 @@
+﻿@model Myth.UI.Models.GameVM
+
+<style>
+    #map {
+        height: 800px;
+        width: auto;
+    }
+
+    .markerCards {
+        height: 80px;
+        width: 80px;
+    }
+
+    
+</style>
+@{
+    ViewBag.Title = "Play";
+}
+
+
+
+<div id="allNests" hidden>
+</div>
+
+<div class="container-fluid" style="margin-left:-20px;margin-right:-20px">
+    <div class="row">
+        <div class="col-12">
+            <div class="row">
+                <div class="wireframe" hidden><h3>COUNT GOES HERE:</h3></div>
+            </div>
+            <div class="row">
+                @*//MAP //////*@
+                <div class="col-lg-10 mapBorder">
+                    <div id="map" class="img-responsive"></div>
+
+
+                    @*//MODAL //////*@
+                    <!-- Button trigger modal -->
+                    @*<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+                        Launch demo modal
+                    </button>*@
+
+                    <!-- Modal -->
+                    @*<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    ...
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>*@
+                </div>
+
+                <div class="col-lg-2 wireframe" id="gameSidebar" style="display:none;">
+                    <h5 class="amaticFont">Attempts Remaining: </h5><h5 id="userClickCounter" class="">0</h5>
+                    <br />
+                    <h5 class="amaticFont">Tracks Remaining: </h5><h5 class="" id="trackClickCounter">0</h5>
+
+                </div>
+
+
+
+
+                    <div class="col-lg-2" id="mainSidebar" style="display:block;">
+                        @if (!Request.IsAuthenticated)
+                        {
+                            <h6>
+                                @Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" }) or
+                                @Html.ActionLink("Login", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" }) to play.
+                            </h6>
+                        }
+                        <div class="accordion-wrapper">
+                            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading" role="tab" id="headingOne">
+                                        <h4 class="panel-title">
+                                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                                <h3 class="kingFont" style="text-align:center;"><u>Footprints Spotted:</u></h3>
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                                        <div class="panel-body">
+                                            @{
+                                                var validNests = Model.Nests.Where(i => i.IsPlaced == true);
+                                            }
+                                            @foreach (var c in Model.Creatures)
+                                            {
+                                                if (c.CreatureIsPlaced == true)
+                                                {
+                                                    <div class="card wireframe shadow-lg" id="imgPictureDiv" style="display:none; text-align:center; text-shadow: 2px 2px 8px #1C6EA4; margin:-8px; margin-bottom:4px; margin-top:4px;"><img id="@($"img{c.CreatureId}")" class="monsterImg shadow-lg" src="@c.Picture" />
+                                                    <div id="@($"modal{c.CreatureId}")" class="modal">
+                                                        <img class="modal-content" id="@($"content{c.CreatureId}")">
+                                                        <div id="caption">@c.CreatureDescription</div>
+                                                    </div>
+                                                </div>
+
+                                            <div class="card wireframe shadow-lg" id="@c.CreatureId" style="text-align:center; text-shadow: 2px 2px 8px #1C6EA4; margin:-8px; margin-bottom:4px; margin-top:4px;" onclick="Track(@c.Footprints.LastOrDefault(f => f.CreatureId == c.CreatureId).FootprintId, @c.CreatureId)">
+                                                
+
+
+                                                <h4 class="card-header">
+                                                    <b class="amaticFont accordion-buttons" style="filter: blur(0.7rem); ">@c.CreatureName</b>
+                                                </h4>
+                                                <div class="card-body ">
+                                                    <h6>@c.Footprints.FirstOrDefault(f => f.CreatureId == c.CreatureId).FootprintType</h6>
+                                                    <p class="card-text">
+                                                        @c.Nest.NestName
+                                                        @c.Footprints.FirstOrDefault(f => f.CreatureId == c.CreatureId).FootprintDate
+                                                    </p>
+                                                </div>
+                                                <div class="card-footer">
+                                                    @foreach (var t in c.Traits)
+                                                    {
+                                                        <p><span style="font-size:smaller">Trait: </span>@t.TraitName &nbsp;</p>
+                                                    }
+                                                </div>
+
+                                            </div>
+                                                    <br />
+                                                }
+
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="panel panel-default">
+                                    <div class="panel-heading" role="tab" id="headingThree">
+                                        <h4 class="panel-title">
+                                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+                                                <h3 class="kingFont" style="text-align:center"><u>User Score:</u></h3>
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                                        <div class="panel-body">
+
+                                            <h1>
+                                                When I figure out users, their medals and scores will be here.
+                                                Also like, a welcome. Store Dates Too
+                                            </h1>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                @if (Request.IsAuthenticated && User.Identity.IsAuthenticated && User.IsInRole("admin"))
+                                {
+
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading" role="tab" id="headingFour">
+                                            <h4 class="panel-title">
+                                                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
+                                                    <h3 class="kingFont" style="text-align:center"><u>Unplaced Creatures:</u></h3>
+                                                </a>
+                                            </h4>
+                                        </div>
+                                        <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
+                                            <div class="panel-body">
+                                                @foreach (var n in Model.Creatures)
+                                                {
+                                                    if (n.CreatureIsPlaced == false)
+                                                    {
+                                                        <button id="newCreature'@n.CreatureId" onclick="PlaceCreature(@n.CreatureId)" style="visibility:visible;" value="@n.CreatureName">@n.CreatureName</button>
+                                                    }
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading" role="tab" id="headingTwo">
+                                            <h4 class="panel-title">
+                                                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                                                    <h3 class="kingFont" style="text-align:center"><u>Unplaced Nests:</u></h3>
+                                                </a>
+                                            </h4>
+                                        </div>
+                                        <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                                            <div class="panel-body">
+                                                @foreach (var n in Model.Nests)
+                                                {
+                                                    if (n.IsPlaced == false)
+                                                    {
+                                                        <button id="newNest" onclick="PlaceNest(@n.NestId)" style="visibility:visible;" value="@n.NestName">@n.NestName</button>
+                                                    }
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                }
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        var nestMarkerArray = [];
+        let footprintMarkerArray = [];
+        var creatureMarkerArray = [];
+        var userMarkerArray = [];
+        var userMarkerArrayLatLng = [];
+        var map;
+        let mapListener;
+        var trackCreatureArray = [];
+        var numberOfPrints = 0;
+
+        var FootprintType;
+        var userClickCount = 0;
+        var userClickLimit = false;
+        var didUserWin = false;
+        var footprintClickCount = 0; //Because the starting marker is also "true"
+        var userNestsFoundCount = 0;
+        let gameCreatureId;
+
+        function xhrFail(xhr, status, err) {
+            console.log(xhr, status, err);
+        }
+
+
+
+        //ADMIN LAT/LONG CHECKER ENCLOSED
+        //FOR CHECKING LAT/LONG WHILE BUILDING:
+        function AdminCheckPos() {
+            var userClickInfoWindow = new google.maps.InfoWindow();
+
+            google.maps.event.addListener(map, 'click', function (e) {
+
+                var userMarker = new google.maps.Marker({
+                    position: e.latLng,
+                    map: map
+                });
+
+                userClickCount++;
+                userClickInfoWindow.setContent(e.latLng.toString());
+                userClickInfoWindow.open(map, userMarker);
+                userMarkerArray.push(userMarker);
+                userMarkerArrayLatLng.push(e.latLng.toString(), userClickCount);
+                console.log(userMarkerArray);
+                console.log(userMarkerArrayLatLng);
+            });
+        }
+
+
+
+        //THIS WILL BE THE CREATE GENERIC MARKER FUNCTION... MAY WANT TO CREATE A SEPERATE ONE FOR DIFFERENT LISTENER TYPES.
+
+        function createMarker(options, html) {
+            var marker = new google.maps.Marker(options);//adds a new marker, options being position, and html being marker text.
+            var InfoWindow = new google.maps.InfoWindow({});
+            if (html) {
+                google.maps.event.addListener(marker, "click", function () {
+                    InfoWindow.setContent(html); //sets the info window to any string of html inputed as the second parameter when called.
+                    InfoWindow.open(options.map, this); //open on THIS marker on the map
+                });
+            }
+            return marker;
+        }
+        //////////////////////////////////////////////
+
+        function Track(footprintId, creatureId) {
+            for (i = 0; i < footprintMarkerArray.length - 1; i++) {
+                if (footprintMarkerArray[i].FootprintId == footprintId) {
+                    var panLatLong = new google.maps.LatLng(footprintMarkerArray[i].FootprintLat, footprintMarkerArray[i].FootprintLong)
+                    map.panTo(panLatLong);
+                    map.setZoom(15);
+                    
+                    //map.setOptions({ zoomControl: false });
+                    //map.setOptions({ gestureHandling: 'none' });
+                    //SET CURSOR STYLE AND MAKE IT SO IT DOESN'T CHANGE WHILE HOVERING ITEMS
+                    //document.getElementById('cmdt_1_1i').removeAttribute("onclick");
+                    //document.getElementById('cmdt_1_1i').removeAttribute("onclick");
+                    //document.getElementById('cmdt_1_1i').removeAttribute("onclick");
+
+                    document.getElementById("mainSidebar").style.display = "none";
+                    document.getElementById("gameSidebar").style.display = "block";
+                    gameCreatureId = creatureId;
+                }
+                if (footprintMarkerArray[i].CreatureId == creatureId) {
+                    footprintClickCount++;
+                }
+            }
+            
+            if (userClickLimit == false) { //if user success = false;
+                TrackSearch(creatureId);
+            }
+            else {
+                google.maps.event.removeListener(mapListener);
+                return;
+            }
+        }
+
+        function TrackSearch(creatureId) {
+            trackCreatureArray = footprintMarkerArray.filter(creature => creature.CreatureId == creatureId);
+            google.maps.event.removeListener(mapListener);
+            footprintClickCount = Math.floor(footprintClickCount / 2);
+            userClickCount = footprintClickCount * 2;
+            document.getElementById("userClickCounter").innerText = userClickCount
+            document.getElementById("trackClickCounter").innerText = footprintClickCount;
+            var userClickInfoWindow = new google.maps.InfoWindow();
+            mapListener = google.maps.event.addListener(map, 'click', function (e) {
+
+                var searchIcon = {
+                    url: '/Content/Images/eyeMarker.png', //markerPrint
+                    size: new google.maps.Size(90, 90),
+                    origin: new google.maps.Point(0, 0),
+                    anchor: new google.maps.Point(17, 34),
+                    scaledSize: new google.maps.Size(75, 75)
+                };
+
+                var userMarker = new google.maps.Marker({
+                    position: e.latLng,
+                    map: map,
+                    icon: searchIcon
+                });
+
+                
+                userClickCount--; //add a marker that says fail
+                userClickInfoWindow.setContent('MISS ' + userClickCount);
+                userClickInfoWindow.open(map, userMarker);
+                userMarkerArray.push(userMarker);
+                userMarkerArrayLatLng.push(e.latLng.toString(), userClickCount);
+                console.log(userMarkerArrayLatLng);
+                console.log(trackCreatureArray);
+                document.getElementById("userClickCounter").innerText = userClickCount
+
+                if (footprintClickCount == 0) {
+                    alert('WINNER!');
+                    didUserWin = true;
+                    TrackCleanup(creatureId);
+                }
+                if (userClickCount > 6) {
+                    alert('LOSS');
+                    userClickLimit = true;
+                    TrackCleanup(creatureId);
+                }
+            });
+        }
+
+        function TrackCleanup(creatureId) {
+            //these are cleanup to restore map and creature array. //find element by sidebar / open modal
+            trackCreatureArray = [];
+            userMarkerArray = [];
+
+            if (didUserWin == true) {
+                document.getElementById("imgPictureDiv").style.display = "block";
+                document.getElementById(""+creatureId+"").style.display = "none";
+            }
+
+            userClickCount = 0;
+            footprintClickCount = 0;
+            document.getElementById("mainSidebar").style.display = "block";
+            document.getElementById("gameSidebar").style.display = "none";
+            document.getElementById(creatureId).style.display = "none"; //FIGURE OUT A BETTER WAY TO HANDLE THIS.
+
+            
+            google.maps.event.removeListener(mapListener);
+            map.setOptions({ zoomControl: true });
+            map.setOptions({ gestureHandling: 'cooperative' });
+            var panLatLong = new google.maps.LatLng(36.04856476779032, 138.34813861728094)
+            map.panTo(panLatLong);
+            map.setZoom(8);
+        }
+
+        function WinResults() {
+
+        }
+
+
+
+
+        function PlaceNest(nestId) {
+            var indexOfNest = nestMarkerArray.findIndex((i) => i.NestId == nestId); //is  find() better to use??
+            console.log(indexOfNest);
+
+            google.maps.event.addListener(map, "click", function (e) {
+
+                var nestMarker = new google.maps.Marker({
+                    position: e.latLng,
+                    map: map,
+                    opacity: 1
+                });
+
+                nestMarkerArray[indexOfNest].NestLat = nestMarker.position.lat();
+                nestMarkerArray[indexOfNest].NestLong = nestMarker.position.lng();
+                var nestToAdd = nestMarkerArray[indexOfNest];
+                nestMarkerArray.push(nestToAdd);
+                $.ajax({
+                    url: 'http://localhost:50688/game/setnest',
+                    type: "POST",
+                    data: JSON.stringify(nestToAdd),
+                    contentType: "application/json"
+                }).done(function () {
+                    var newNestInfoWindow = new google.maps.InfoWindow().setContent(nestName);
+
+                    nestMarker.addListener('mouseover', function () {
+                        nestMarker.setOpacity(1);
+                    });
+                    nestMarker.addListener('mouseout', function () {
+                        nestMarker.setOpacity(0.5);
+                    });
+                    nestMarker.addListener('mouseover', function () { //Could add this if I find a way to keep track of the n.name value id
+                        newNestInfoWindow.open(map, nestMarker);
+                    });
+                    nestMarker.addListener('mouseout', function () {
+                        newNestInfoWindow.close(map, nestMarker);
+                    });
+                    document.getElementById("newNest").style.visibility = "hidden";
+                }).fail(xhrFail);
+
+                google.maps.event.clearInstanceListeners(map);
+
+            });
+        }
+
+
+
+
+
+        function PlaceCreature(creatureId) {
+            var indexOfCreature = creatureMarkerArray.findIndex((i) => i.CreatureId == creatureId); //is  find() better to use??
+            console.log(indexOfCreature);
+
+            google.maps.event.addListener(map, "click", function (e) {
+
+                var newCreatureMarker = new google.maps.Marker({
+                    position: e.latLng,
+                    map: map,
+                    opacity: 0
+                });
+
+                creatureMarkerArray[indexOfCreature].CreatureLat = newCreatureMarker.position.lat();
+                creatureMarkerArray[indexOfCreature].CreatureLong = newCreatureMarker.position.lng();
+                var creatureToAdd = creatureMarkerArray[indexOfCreature];
+                creatureMarkerArray.push(creatureToAdd);
+                $.ajax({
+                    url: 'http://localhost:50688/game/setcreature',
+                    type: "POST",
+                    data: JSON.stringify(creatureToAdd),
+                    contentType: "application/json"
+                }).done(function () {
+                    var newCreatureWindow = new google.maps.InfoWindow();/*.setContent(nestName)*/;
+
+                    SetFootprints(creatureMarkerArray);
+                    
+                    document.getElementById("newCreature'"+creatureId+"").style.visibility = "hidden";
+                    GetFootprints();
+                }).fail(xhrFail);
+
+                google.maps.event.clearInstanceListeners(map);
+
+            });
+        }
+
+
+
+
+
+
+        function GetFootprints() {
+            $.ajax({
+                type: 'GET',
+                url: 'http://localhost:50688/game/footprints',
+                success: function (footprintArray) {
+                    //footprintMarkerArray = [];
+                    $.each(footprintArray, function (index, footprint) {
+                        footprintMarkerArray.push(footprint);
+                    });
+                    console.log(footprintMarkerArray);
+                    SetFootprints(footprintMarkerArray);
+                },
+                error: function () {
+                    alert("FAILURE!");
+                }
+            });
+        }
+
+
+
+        function SetFootprints(footprintMarkerArray) {
+            for (let i = 0; i < footprintMarkerArray.length - 1; i++) {
+                if (footprintMarkerArray[i].CreatureId == footprintMarkerArray[i + 1].CreatureId) {
+
+                    if (footprintMarkerArray[i].FootprintType == 'Ashes') {
+                        FootprintType = '/Content/Images/markerPrint.png';
+                    }
+                    if (footprintMarkerArray[i].FootprintType == 'Footprints') {
+                        FootprintType = '/Content/Images/footprintMarker.png';
+                    }
+                    if (footprintMarkerArray[i].FootprintType == 'Claw Marks') {
+                        FootprintType = '/Content/Images/clawMarks.png';
+                    }
+
+                    var footprintTypeIcon = {
+                        url: FootprintType,
+                        size: new google.maps.Size(90, 90),
+                        origin: new google.maps.Point(0, 0),
+                        anchor: new google.maps.Point(17, 34),
+                        scaledSize: new google.maps.Size(75, 75)
+                    };
+                    
+
+                            /*this["hiddenMarker" + i] == */createMarker({
+                        position: new google.maps.LatLng(footprintMarkerArray[i].FootprintLat, footprintMarkerArray[i].FootprintLong),
+                        map: map,
+                        opacity: 1,
+                        icon: footprintTypeIcon
+                                
+                    },
+                        /*"<h2 class=" + "kingFontTwo" + "><span class=" + "kingFontTwo" + ">PrintId:</span>" + footprintMarkerArray[i].FootprintId + "</h2>"*/).addListener('click', function () {
+                            this.setOpacity(1);
+                            if (footprintMarkerArray[i]['IsClicked'] == false) {
+                                footprintClickCount--;
+                                document.getElementById("trackClickCounter").innerText = footprintClickCount;
+                                footprintMarkerArray[i]['IsClicked'] = true;
+                            }
+                            if (footprintClickCount == 0) {
+                                alert('WINNER!');
+                                didUserWin = true;
+                                TrackCleanup(gameCreatureId);
+                            }
+                        });
+                }
+                else {
+                    //var footprintInfoWindow = new google.maps.InfoWindow({
+                    //    content: '<div>' + footprintMarkerArray[i].FootprintDate + '</div>'
+                    //})
+                            /*var markerShown = */createMarker({
+                        position: new google.maps.LatLng(footprintMarkerArray[i].FootprintLat, footprintMarkerArray[i].FootprintLong),
+                        map: map,
+                        opacity: 1,
+                        icon: footprintTypeIcon
+                    }/*, "<h2 class=" + "kingFontTwo" + "><span class=" + "kingFontTwo" + ">PrintId:</span>" + footprintMarkerArray[i].FootprintId + "</h2>"*/).addListener('click', function () {
+                        this.setOpacity(1);
+                        footprintMarkerArray[i]['IsClicked'] = true;
+                        footprintInfoWindow.open(map, this.marker);
+                    });
+                }
+            }
+        }
+
+
+
+        $(document).ready(function () {
+            $.ajax({
+                type: 'GET',
+                url: 'http://localhost:50688/game/nests',
+                success: function (nestArray) {
+                    $.each(nestArray, function (index, nest) {
+
+                        var nestinfowindow = new google.maps.InfoWindow({
+                            content: "<h2 class=" + "kingFontTwo" + "><span class=" + "kingFontTwo" + ">Nest:</span>" + nest.NestName + "</h2>"
+                        });
+
+                        var nestmarker = createMarker({
+                            position: new google.maps.LatLng(nest.NestLat, nest.NestLong),
+                            map: map
+                        });
+
+                        nestMarkerArray.push(nest);
+                        nestmarker.setOpacity(0);
+                        nestmarker.addListener('mouseover', function () {
+                            nestmarker.setOpacity(1);
+                        });
+                        nestmarker.addListener('mouseout', function () {
+                            nestmarker.setOpacity(0.5);
+                        });
+                        nestmarker.addListener('mouseover', function () {
+                            nestinfowindow.open(map, nestmarker);
+                        });
+                        nestmarker.addListener('mouseout', function () {
+                            nestinfowindow.close(map, nestmarker);
+                        });
+                    });
+                    GetFootprints();
+                },
+                error: function () {
+                    alert("FAILURE!");
+                }
+            });
+            //===============================================================END OF NESTS
+
+
+            $.ajax({
+                type: 'GET',
+                url: 'http://localhost:50688/game/creatures',
+                success: function (creatureInput) {
+                    $.each(creatureInput, function (index, creature) {
+
+                        //var creatureInfoWindow = new google.maps.InfoWindow({
+                        //    content: "<h2 class=" + "kingFontTwo" + "><span class=" + "kingFontTwo" + ">Creature: </span>" + creature.CreatureName + "</h2>"
+                        //});
+
+                        var creatureMarker = createMarker({
+                            position: new google.maps.LatLng(creature.CreatureLat, creature.CreatureLong),
+                            map: map
+                        });
+
+                        creatureMarkerArray.push(creature);
+                        creatureMarker.setOpacity(0);
+                        creatureMarker.addListener('mouseover', function () {
+                            creatureMarker.setOpacity(1);
+                        });
+                        creatureMarker.addListener('mouseout', function () {
+                            creatureMarker.setOpacity(0.5);
+                        });
+                        //creatureMarker.addListener('mouseover', function () {
+                        //    creatureInfoWindow.open(map, creatureMarker);
+                        //});
+                        //creatureMarker.addListener('mouseout', function () {
+                        //    creatureInfoWindow.close(map, creatureMarker);
+                        //});
+                    });
+                    GetFootprints();
+                    console.log(creatureMarkerArray);
+                },
+                error: function () {
+                    alert("FAILURE!");
+                }
+            });
+
+
+
+        });//////////////////////////////////////end of onload
+
+
+
+        function initMap() {
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: { lat: 36.04856476779032, lng: 138.34813861728094 },
+                zoom: 8,
+                disableDefaultUI: true,
+                mapTypeControlOptions: {
+                    mapTypeIds: [google.maps.MapTypeId.TERRAIN]
+                },
+                mapTypeId: google.maps.MapTypeId.TERRAIN,
+
+                styles: [
+                    { elementType: 'geometry', stylers: [{ color: '#242f3e' }] },
+                    { elementType: 'labels.text.stroke', stylers: [{ color: '#242f3e' }] },
+                    { elementType: 'labels.text.fill', stylers: [{ color: '#746855' }] },
+                    {
+                        featureType: 'administrative.locality',
+                        elementType: 'labels.text.fill',
+                        stylers: [{ color: '#d59563' }]
+                    },
+                    {
+                        featureType: 'poi',
+                        elementType: 'labels.text.fill',
+                        stylers: [{ color: '#d59563' }]
+                    },
+
+                    {
+                        "featureType": "road",
+                        "elementType": "labels",
+                        "stylers": [
+                            { "visibility": "off" }
+                        ]
+                    },
+
+                    {
+                        featureType: 'poi.park',
+                        elementType: 'geometry',
+                        stylers: [{ color: '#263c3f' }]
+                    },
+                    {
+                        featureType: 'poi.park',
+                        elementType: 'labels.text.fill',
+                        stylers: [{ color: '#6b9a76' }]
+                    },
+
+                    {
+                        featureType: 'road',
+                        elementType: 'geometry',
+                        stylers: [{ color: '#38414e' }]
+                    },
+                    {
+                        featureType: 'road',
+                        elementType: 'geometry.stroke',
+                        stylers: [{ color: '#212a37' }]
+                    },
+                    {
+                        featureType: 'road',
+                        elementType: 'labels.text.fill',
+                        stylers: [{ color: '#9ca5b3' }]
+                    },
+                    {
+                        featureType: 'road.highway',
+                        elementType: 'geometry.stroke',
+                        stylers: [{ color: '#1f2835' }]
+                    },
+                    {
+                        featureType: 'road.highway',
+                        elementType: 'labels.text.fill',
+                        stylers: [{ color: '#f3d19c' }]
+                    },
+                    {
+                        featureType: 'transit',
+                        elementType: 'geometry',
+                        stylers: [{ color: '#2f3948' }]
+                    },
+                    {
+                        featureType: 'transit.station',
+                        elementType: 'labels.text.fill',
+                        stylers: [{ color: '#d59563' }]
+                    },
+                    {
+                        featureType: 'water',
+                        elementType: 'geometry',
+                        stylers: [{ color: '#17263c' }]
+                    },
+                    {
+                        featureType: 'water',
+                        elementType: 'labels.text.fill',
+                        stylers: [{ color: '#515c6d' }]
+                    },
+                    {
+                        featureType: 'water',
+                        elementType: 'labels.text.stroke',
+                        stylers: [{ color: '#17263c' }]
+                    }
+                ]
+            });
+
+        }
+
+         @*@foreach(var c in Model.Creatures)
+    {
+        <text>var modal = document.getElementById("@($"modal{c.CreatureId}")");</text>
+        <text>var img = document.getElementById("@($"img{c.CreatureId}")");</text>
+    <text>var modalImg = document.getElementById("@($"content{c.CreatureId}")");</text>
+      <text>img.onclick = function() {
+            modal.style.display = "block";
+            modalImg.src = this.src;
+        }
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }</text>
+
+    }*@
+
+
+
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAdxdegIYu1JMDb4DwPzauyxETZUiiVZao&callback=initMap"
+            async defer></script>
+

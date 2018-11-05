@@ -1,0 +1,54 @@
+﻿@model Myth.UI.Models.NestCM
+@{
+    ViewBag.Title = "AllNests";
+}
+
+<h2>All Nests</h2>
+@Html.ActionLink("Create a Nest", "Nest", "Create", new { @class = "btn btn-primary" })
+<div class="wireframe">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Nest Name</th>
+                <th></th>
+                <th align="center">Creatures: </th>
+                <th></th>
+            </tr>
+        </thead>
+
+        @foreach (var n in Model.Nests)
+        {
+            <tbody class="fixList">
+                @* need to vertical align this junk *@
+                <tr>
+                    <td valign="middle" style="max-width:65px">
+                        @if (n.NestLat == 0 && n.NestLong == 0)
+                        {
+                            <span><a><b style="font-size:larger">@n.NestName</b></a> | <span style="font-size:smaller">Location: <b>Not Currently Placed</b></span></span><br />
+                        }
+                        else
+                        {
+                            <span><a><b style="font-size:larger">@n.NestName</b></a> | <br/><span style="font-size:smaller">Location: </span>@n.NestLat | @n.NestLong</span><br />
+                        }
+
+                    </td>
+                    <td valign="middle" align="center" style="max-width:60px">
+                        @Html.ActionLink("Edit", "EditNest", "Create", new { id = n.NestId }, new { @class = "btn btn-primary" })
+                        @Html.ActionLink("Delete", "DeleteNest", "Create", new { id = n.NestId }, new { @class = "btn btn-danger", @onclick = "return confirm('Are you sure you want to delete this nest? This creature will be orphaned..');" })
+                    </td>
+                    <td>
+                        @foreach (var c in Model.Creatures)
+                        {
+                            if (c.NestId == n.NestId)
+                            {
+                                <span>@c.CreatureName</span>
+                            }
+                            
+
+                        }
+                    </td>
+                </tr>
+            </tbody>
+
+        }
+    </table>

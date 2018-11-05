@@ -1,0 +1,44 @@
+﻿@model Myth.Domain.Models.Trait
+@{
+    ViewBag.Title = "Trait";
+}
+<h1 class="amaticFont">Create Trait</h1>
+
+<div class="container-fluid wireframe">
+    @using (Html.BeginForm("Trait", "Create", FormMethod.Post))
+    {
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(a => a.TraitName)
+                            @Html.TextBoxFor(a => a.TraitName, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(a => a.TraitName, "", new { @style = "color:red" })
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(a => a.TraitDescription)
+                            @Html.TextBoxFor(a => a.TraitDescription, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(a => a.TraitDescription, "", new { @style = "color:red" })
+                        </div>
+                    </div>
+                    
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-row">
+                                <div class="form-group pull-right">
+                                    <button class="btn btn-primary" type="submit">Save</button><a href="~/Create/Index" class="btn btn-default">Cancel</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+      
+
+    }
