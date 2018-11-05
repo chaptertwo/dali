@@ -1,0 +1,3 @@
+OrderNumber,CustomerName,State,TaxRate,ProductType,Area,CostPerSquareFoot,LaborCostPerSquareFoot,MaterialCost,LaborCost,Tax,Total,Day
+1,FirstPerDate,OH,6.25,Laminate,358,1.75,2.10,626.50,751.80,86.143750,1464.443750,9/18/2018 12:00:00 AM
+2,Test,OH,6.25,Laminate,320,1.75,2.10,560.00,672.00,77.000000,1309.000000,9/18/2018 12:00:00 AM

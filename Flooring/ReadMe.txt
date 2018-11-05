@@ -1,0 +1,1 @@
+Flooring Mastery was our midway-cohort capstone. It is a console-based inventory system that incorporates CRUD saving to a text file. The project was tested using NUnit.

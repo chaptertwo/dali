@@ -1,0 +1,7 @@
+C:\Users\steph\source\repos\Flooring\Flooring\bin\Debug\Flooring.exe.config
+C:\Users\steph\source\repos\Flooring\Flooring\bin\Debug\Flooring.exe
+C:\Users\steph\source\repos\Flooring\Flooring\bin\Debug\Flooring.pdb
+C:\Users\steph\source\repos\Flooring\Flooring\obj\Debug\Flooring.csprojAssemblyReference.cache
+C:\Users\steph\source\repos\Flooring\Flooring\obj\Debug\Flooring.csproj.CoreCompileInputs.cache
+C:\Users\steph\source\repos\Flooring\Flooring\obj\Debug\Flooring.exe
+C:\Users\steph\source\repos\Flooring\Flooring\obj\Debug\Flooring.pdb

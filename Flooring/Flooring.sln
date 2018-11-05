@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2003
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Flooring", "Flooring\Flooring.csproj", "{7C92B1C3-0306-45D3-80C7-FC8D0631F73D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Flooring.Tests", "Flooring.Tests\Flooring.Tests.csproj", "{7BCA7E76-9D03-419E-8CBC-EF4C5BA0C956}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7C92B1C3-0306-45D3-80C7-FC8D0631F73D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C92B1C3-0306-45D3-80C7-FC8D0631F73D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C92B1C3-0306-45D3-80C7-FC8D0631F73D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C92B1C3-0306-45D3-80C7-FC8D0631F73D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7BCA7E76-9D03-419E-8CBC-EF4C5BA0C956}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7BCA7E76-9D03-419E-8CBC-EF4C5BA0C956}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7BCA7E76-9D03-419E-8CBC-EF4C5BA0C956}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7BCA7E76-9D03-419E-8CBC-EF4C5BA0C956}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {15D7DE10-D70E-47FF-9700-2FE9F127C504}
+	EndGlobalSection
+EndGlobal

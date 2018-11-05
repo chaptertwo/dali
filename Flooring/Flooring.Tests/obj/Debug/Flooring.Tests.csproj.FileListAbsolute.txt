@@ -1,0 +1,14 @@
+C:\Users\steph\source\repos\Flooring\Flooring.Tests\bin\Debug\Flooring.Tests.dll.config
+C:\Users\steph\source\repos\Flooring\Flooring.Tests\bin\Debug\Flooring.Tests.dll
+C:\Users\steph\source\repos\Flooring\Flooring.Tests\bin\Debug\Flooring.Tests.pdb
+C:\Users\steph\source\repos\Flooring\Flooring.Tests\bin\Debug\Flooring.exe
+C:\Users\steph\source\repos\Flooring\Flooring.Tests\bin\Debug\nunit.framework.dll
+C:\Users\steph\source\repos\Flooring\Flooring.Tests\bin\Debug\Flooring.pdb
+C:\Users\steph\source\repos\Flooring\Flooring.Tests\bin\Debug\Flooring.exe.config
+C:\Users\steph\source\repos\Flooring\Flooring.Tests\bin\Debug\nunit.framework.pdb
+C:\Users\steph\source\repos\Flooring\Flooring.Tests\bin\Debug\nunit.framework.xml
+C:\Users\steph\source\repos\Flooring\Flooring.Tests\obj\Debug\Flooring.Tests.csprojAssemblyReference.cache
+C:\Users\steph\source\repos\Flooring\Flooring.Tests\obj\Debug\Flooring.Tests.csproj.CoreCompileInputs.cache
+C:\Users\steph\source\repos\Flooring\Flooring.Tests\obj\Debug\Flooring.Tests.csproj.CopyComplete
+C:\Users\steph\source\repos\Flooring\Flooring.Tests\obj\Debug\Flooring.Tests.dll
+C:\Users\steph\source\repos\Flooring\Flooring.Tests\obj\Debug\Flooring.Tests.pdb

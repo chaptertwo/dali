@@ -1,0 +1,2 @@
+OrderNumber,CustomerName,State,TaxRate,ProductType,Area,CostPerSquareFoot,LaborCostPerSquareFoot,MaterialCost,LaborCost,Tax,Total,Day
+1,Cust,OH,6.25,Laminate,875,1.75,2.10,1531.25,1837.50,210.546875,3579.296875,9/30/2018 12:00:00 AM
