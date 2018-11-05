@@ -1,0 +1,25 @@
+﻿@model BTAdventure.UI.Models.PlayerGame
+@{
+    ViewBag.Title = "Intro";
+}
+
+<div class="poiretFont">
+    <h2>Intro</h2><hr/><br />
+    <h1 class="cinzelfont" id="title" style="text-decoration:wavy; display:none;">@Model.Game.GameTitle</h1>
+    <h2 id="intro" style="display:none">'@Model.Game.IntroText'</h2>
+    @using (Html.BeginForm("Intro", "Gameplay", new { id = Model.Character.CharacterId }, FormMethod.Post))
+    {
+        @Html.HiddenFor(a => a.Character.CharacterId)
+        <button type="submit" id="btn" style="display:none" class="btn btn-primary">Continue</button>
+    }
+</div>
+
+<script>
+    $(document).ready(function () {
+        
+        $("#title").fadeIn(3000);
+        $("#intro").fadeIn(4200);
+        $("#btn").fadeIn(5000);
+    });
+    
+</script>

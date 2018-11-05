@@ -1,0 +1,31 @@
+﻿@model BTAdventure.Models.Ending
+@{
+    ViewBag.Title = "Create a New Ending!";
+}
+
+<h2>New Ending</h2>
+<div class="container-fluid wireframe">
+    @using (Html.BeginForm("NewEnding", "Creator", FormMethod.Post))
+    {
+
+        <div class="form-row">
+            <div class="col-md-12 verticalSpaced">
+                @Html.LabelFor(a => a.EndingName, new { @class = "col" })
+                @Html.HiddenFor(a => a.EndingId)
+                @Html.HiddenFor(a => a.GameId)
+                @Html.TextBoxFor(a => a.EndingName, new { @class = "col", required = "required" })
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-12 verticalSpaced">
+                @Html.LabelFor(a => a.EndingText, new { @class = "col" })
+                @Html.TextAreaFor(a => a.EndingText, new { @class = "col", required = "required" })
+            </div>
+        </div>
+        <div class="form-row">
+            <a class="btn btn-danger btnForm" href="/Creator/SceneMain/@ViewBag.GameId">Back</a>
+            <button type="submit" class="btn btn-primary btnForm">Save</button>
+        </div>
+
+    }
+    </div>

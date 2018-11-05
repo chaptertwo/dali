@@ -1,0 +1,17 @@
+﻿@model BTAdventure.UI.Models.GameSceneVM
+@{
+    ViewBag.Title = "Ending";
+}
+<br/><br/>
+
+<h2 class="cinzelfont" id="end" style="font-size:xx-large; text-align:center; display:none">-The End-</h2>
+<hr />
+<div id="endingText" style="display:none; font-size:x-large" class="wireframe poiretFont">@Model.Ending.EndingText</div>
+
+<script>
+    $(document).ready(function () {
+        $("#end").fadeIn(3000);
+        $("#endingText").fadeIn(3700);
+    });
+
+</script>

@@ -1,0 +1,41 @@
+﻿@model BTAdventure.UI.Models.PlayerGame
+@{
+    ViewBag.Title = "NewGame";
+}
+
+<h2 class="poiretFont">New Game</h2>
+<div class="container-fluid wireframe">
+    @if (Model.GameList.Any())
+    {
+        using (Html.BeginForm("NewGame", "Gameplay", FormMethod.Post))
+        {
+            <div class="row">
+                <div class="col-md-4"></div>
+                <div class="col-md-4">
+                    <label>New Character Name: </label>
+                    @Html.TextBoxFor(a => a.Character.CharacterName, new { @class = "form-control", @value = " ", required = "required" })
+                    <div class="col-md-4"></div>
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-4"></div>
+                <div class="col-md-4">
+                    @Html.LabelFor(a => a.Game.GameTitle)
+                    @Html.DropDownListFor(a => a.SelectGameId, Model.GameList, new { @class = "form-control" })
+                    <button type="submit" class="btn btn-primary newGameBtn">Save</button>
+                </div>
+                <div class="col-md-4"></div>
+            </div>
+        }
+    }
+    else
+    {
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4 text-center">Sorry, there do not appear to be any existing, playable, games.</div>
+            <div class="col-md-4"></div>
+        </div>
+    }
+</div>
+

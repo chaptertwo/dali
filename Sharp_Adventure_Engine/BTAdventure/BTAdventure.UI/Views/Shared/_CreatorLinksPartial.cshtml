@@ -1,0 +1,21 @@
+﻿@using Microsoft.AspNet.Identity
+@if (Request.IsAuthenticated)
+{
+
+    <div class="navbar" style="color: antiquewhite;">
+
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li class="navbarItems">@Html.ActionLink("Home", "Start", "Home")</li>
+                <li class="navbarItems">@Html.ActionLink("Main Menu", "UserCommandCentre", "Account")</li>
+                <li class="navbarItems"><h1 class="customHeader">Sharp Adventure Engine<span><br /></span></h1></li>
+                <li>@Html.ActionLink("Creator Home", "Index", "Creator")</li>
+                <li>@Html.ActionLink("Creator Home", "EditGame", "Creator")</li>
+                <li class="navbarItems">@Html.ActionLink("Login", "Login", "Account")</li>
+                <li class="navbarItems">@Html.ActionLink("Register", "Register", "Account")</li>
+            </ul>
+        </div>
+    </div>
+    
+
+}

@@ -1,0 +1,260 @@
+﻿body {
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+/*========================layouts*/
+.wireframe {
+    outline: 1px dotted gray;
+    padding: 20px;
+}
+
+.book {
+    margin-top: 20px;
+    text-align: center;
+    font-family: 'Goudy Bookletter 1911', serif;
+    font-size: medium;
+    margin-bottom: 20px;
+}
+
+/*============fonts*/
+.cinzelfont {
+    font-family: 'Cinzel Decorative', cursive;
+}
+
+.rockFont {
+    font-family: 'Rock Salt', cursive;
+}
+
+.eliteFont {
+    font-family: 'Special Elite', cursive;
+}
+
+.poiretFont {
+    font-family: 'Poiret One', cursive;
+    text-align:center;
+}
+
+.goudyFont {
+    font-family: 'Goudy Bookletter 1911', serif;
+    font-size: larger;
+    text-align: center;
+    align-content: center;
+}
+
+.muliFont {
+    font-family: 'Muli', sans-serif;
+    font-size: larger;
+    text-align: center;
+    align-content: center;
+}
+
+.oswaldFont {
+    font-family: 'Oswald', sans-serif;
+    font-size: larger;
+    text-align: center;
+    align-content: center;
+}
+
+.rosaFont {
+    font-family: 'Rosarivo', serif;
+    font-size: larger;
+    text-align: center;
+    align-content: center;
+}
+.btn-grad {
+    background-image: linear-gradient(to right, #403B4A 0%, #E7E9BB 51%, #403B4A 100%)
+}
+
+    .btn-grad:hover {
+        background-position: right center;
+        color: #403B4A;
+    }
+
+.goodChoiceButton {
+    font-family: 'Muli', sans-serif;
+    font-size: larger;
+    float: right;
+    
+    background-color: ghostwhite;
+    height: 100px;
+    width: 150px;
+    color: #000;
+    border-left: solid 1px #000;
+    padding: 8px 12px;
+    font-weight: 700;
+    text-decoration: none;
+    background-size: 0% 100%;
+    background-image: linear-gradient(to right, rgba(85,68,68,0.5), rgba(85,68,68,1));
+    background-repeat: no-repeat;
+    transition: all 0.5s linear;
+    color: black;
+}
+    .goodChoiceButton:hover {
+        background-size: 100% 100%;
+        color: #ececec;
+        transition: all 0.5s cubic-bezier(0.000, 0.000, 0.230, 1);
+    }
+
+.badChoiceButton {
+    font-family: 'Muli', sans-serif;
+    font-size: larger;
+    float: left;
+    outline-style: none;
+    height: 100px;
+    width: 150px;
+    background-color:ghostwhite;
+    
+    padding: 8px 12px;
+    font-weight: 700;
+    text-decoration: none;
+    background-size: 0% 100%;
+    background-image: linear-gradient(to left, rgba(85,68,68,0.5), rgba(85,68,68,1));
+    background-repeat: no-repeat;
+    transition: all 0.5s linear;
+    color: black;
+}
+    .badChoiceButton:hover {
+        background-size: 100% 100%;
+        color: white;
+        transition: all 0.5s cubic-bezier(0.230, 0.000, 0.230, 1);
+    }
+
+.gameImage {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    max-width:80%;
+    max-height:500px;
+    
+    /*-o-object-fit: contain;
+    object-fit: contain;
+    overflow:hidden; dunnowhatthisbe*/
+    box-shadow: 10px 10px 5px grey;
+}
+
+.navbar .navbar-nav {
+    display: inline-block;
+    float: none;
+    vertical-align: top;
+    border: none;
+}
+
+.navbar .navbar-collapse {
+    text-align: center;
+    background-image: linear-gradient(to right, rgba(255,0,0,0), rgba(133,160,221,0.6));
+}
+
+.customHeader {
+    font-family: 'Cinzel Decorative', cursive;
+    color: #e0eff2;
+    text-decoration: overline;
+    
+    
+}
+
+.navbarFontSize {
+    margin-top: 55px;
+    font-size: xx-large;
+}
+
+.navbarItems {
+    font-family: 'Goudy Bookletter 1911', serif;
+    font-size: x-large;
+}
+
+.eventStartTextArea {
+    height: 200px;
+    width: 350px;
+}
+
+.eventTextArea {
+    height: 200px;
+    width: 400px;
+}
+
+.horitzontalList {
+    float: left
+}
+
+.navCustButton {
+    width: 150px;
+    height: 50px;
+    box-shadow: -0.5px 3px 2px grey;
+    
+}
+
+.verticalSpaced {
+    position: relative;
+    text-align: center;
+    /*padding-bottom: .75em;
+    margin-bottom: 5px;
+}
+
+.verticalSpacedUpper {
+    position: relative;
+    text-align: center;
+    /*padding-bottom: .75em;*/
+    margin-top: 5px;
+}
+
+
+
+.navbarBackground {
+    background: rgb(85,68,68);
+    background: linear-gradient(0deg, rgba(85,68,68,0.9) 7%, rgba(170,153,119,0.9) 33%, rgba(204,170,119,0.9) 46%, rgba(221,204,119,0.9) 64%, rgba(238,221,204,0.9023984593837535) 84%);
+}
+
+.navbarBackground2 {
+    background: rgb(85,68,68);
+    background: radial-gradient(circle, rgba(85,68,68,0.9472163865546218) 7%, rgba(238,221,204,0.9023984593837535) 20%, rgba(170,153,119,0.8603816526610644) 33%, rgba(204,170,119,0.7567401960784313) 46%, rgba(221,204,119,0.5270483193277311) 64%);
+    border-bottom:ridge;
+    border-bottom-color:black;
+    border-bottom-width:1px;
+    margin-bottom:20px;
+}
+
+.newGameBtn {
+    height: 38px;
+    width: 100px;
+    margin-top: 15px;
+}
+
+.btnForm {
+    height: 38px;
+    width: 100px;
+    margin: 5px;
+    /*color: white;
+    outline-color:white;*/
+}
+
+.creatorGuidance {
+    text-align:center;
+    height: 40px;
+    width: 150px;
+    margin: 5px;
+}
+
+.singleCheck {
+    margin-top: 8px;
+    margin-left: 5px;
+}

@@ -1,0 +1,34 @@
+﻿@model IEnumerable<BTAdventure.Models.Scene>
+@{
+    ViewBag.Title = "ListGames";
+}
+
+<h2>ListGames</h2>
+<hr />
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Game Id</th>
+            <th>Scene Name</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Any())
+        {
+            foreach (var a in Model)
+            {
+                <tr>
+                    <td><a href="">Game Id: @a.GameId</a></td>
+                    <td>Scene Id: @a.SceneId, @a.SceneName</td>
+                    <td>
+                        <a href="#" class="btn btn-danger">Delete</a>
+                        <a href="#" class="btn btn-primary">Add An Assignment</a>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+
+</table>

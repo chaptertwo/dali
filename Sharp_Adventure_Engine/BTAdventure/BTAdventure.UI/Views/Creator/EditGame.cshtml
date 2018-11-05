@@ -1,0 +1,50 @@
+﻿@model IEnumerable<BTAdventure.Models.Game>
+@{
+    ViewBag.Title = "EditGame";
+}
+
+<div class="row">
+    <h2>Edit Game</h2>
+    <hr />
+</div>
+<div class="row">
+    <a class="btn btn-danger creatorGuidance" href="/Creator/Index">Back</a>
+</div>
+<div class="row">
+    @if (Model.Any())
+    {
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Game Id</th>
+                    <th>Game Title</th>
+                    <th>Intro Text</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Any())
+                {
+                    foreach (var a in Model)
+                    {
+                        <tr>
+                            <td>@a.GameId</td>
+                            <td>@a.GameTitle</td>
+                            <td>@a.IntroText</td>
+                            <td>
+                                <a href="SceneMain/@a.GameId" class="btn btn-primary">Edit</a>
+                                <a href="DeleteGame/@a.GameId" class="btn btn-primary">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+
+        </table>
+    }
+    else
+    {
+        <text>No existing game</text>
+    }
+</div>

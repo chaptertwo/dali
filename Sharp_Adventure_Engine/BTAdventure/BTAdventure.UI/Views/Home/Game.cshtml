@@ -1,0 +1,102 @@
+﻿@model BTAdventure.UI.Models.GameSceneVM
+@{
+    ViewBag.Title = "Game";
+}
+
+<div class="container">
+    <div class="col-lg-12">
+        <div>
+            <h1>@Model.EventChoice.EventChoiceId this is the event choice ID!!!</h1>
+            <h2>@Model.EventChoice.SceneId this is the scene id </h2>
+            <div class="card-body, col-md-6" style="align-content:center;"><p>@Model.EventChoice.EventChoiceId -- current event choice id</p></div>
+            <div class="card-body, col-md-6" style="align-content:center;"><p>@Model.EventChoice.PositiveButton -- current event choice positive button</p></div>
+            <div class="card-body, col-md-6" style="align-content:center;"><p>@Model.EventChoice.PositiveRoute -- current event choice positive route</p></div>
+            <div class="card-body, col-md-6" style="align-content:center;"><p>@Model.EventChoice.PositiveText -- current event choice positive text</p></div>
+            <div class="card-body, col-md-6" style="align-content:center;"><p>@Model.EventChoice.NegativeButton -- current event choice negative button</p></div>
+            <div class="card-body, col-md-6" style="align-content:center;"><p>@Model.EventChoice.NegativeRoute -- current event choice negative route</p></div>
+            <div class="card-body, col-md-6" style="align-content:center;"><p>@Model.EventChoice.NegativeText -- current event choice negative text</p></div>
+            <br /> <br /> <br /> <br />
+        </div>
+    </div>
+</div>
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <img class="gameImage" alt="storyPicture" src="https://vignette.wikia.nocookie.net/assassinscreed/images/8/88/DVD-Knight.png/revision/latest?cb=20120629122150" />
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="positiveText" hidden>@Model.EventChoice.PositiveText</div>
+                    <div id="negativeText" hidden>@Model.EventChoice.NegativeText</div>
+                    <div class="book">
+                        <div id="startText">@Model.EventChoice.StartText</div>
+                        @*The knight seems to take pity on you. He drops several coins...<br />
+                            they clink loudly as they fall to the ground. <br /><br />
+                            The townspeople gaze, smiling at the act of kindness.. <br />
+                            Only you seem to realize, that it's only an act.*@
+
+                    </div>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <button type="button" id="positiveButton" class="btn btn-outline-success" onclick="GetNextSceneEvent(@Model.EventChoice.PositiveRoute)">@Model.EventChoice.PositiveButton</button>
+                </div>
+
+                <div class="col-md-6">
+                    <button type="button" id="negativeButton" class="btn btn-outline-danger" onclick="GetNextSceneEvent(@Model.EventChoice.NegativeRoute)">@Model.EventChoice.NegativeButton</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<h1 id="test"></h1>
+
+<script>
+    function GetNextSceneEvent(route) {
+        //alert(route)
+        $.ajax({
+            type: 'GET',
+            url: 'http://localhost:60493/api/choice/@(Model.EventChoice.EventChoiceId)/' + route,
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            success: function (data, status) {
+                //add something like, if positive was clicked, unhide the h1 for positive text, or better yet make a modal.
+                document.getElementById("positiveButton").innerText = '' + data.PositiveButton + '';
+                document.getElementById("negativeButton").innerText = '' + data.NegativeButton + '';
+                document.getElementById("startText").innerText = '' + data.StartText + '';
+
+
+
+
+
+            },
+            error: function (xhr, status, err) {
+                console.log(xhr, status, err);
+            }
+        });
+    }
+
+
+    @*function GetNextSceneEvent(positive) {
+        alert(positive);
+        $.ajax({
+            type = 'POST',
+            url: 'http://localhost:60493/api/choice/@(Model.EventChoice.EventChoiceId)/(1)',
+
+            success: function (data, status) {
+                document.getElementById("test").innerText = "its working";
+            },
+            error: function (xhr, status, err) {
+                console.log(xhr, status, err);
+            }
+        });
+    };*@
+</script>
+

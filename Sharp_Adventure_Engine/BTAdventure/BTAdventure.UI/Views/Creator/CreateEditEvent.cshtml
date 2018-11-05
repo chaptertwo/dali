@@ -1,0 +1,527 @@
+﻿@model BTAdventure.Models.EventCreationData
+@{
+    ViewBag.Title = "CreateEditEvent";
+}
+
+<div>
+    <div>
+        @if (Model.EventChoice != null)
+        {
+            <h2 class="text-center">Edit Event</h2>
+        }
+        else
+        {
+            <h2 class="text-center">Create Event</h2>
+        }
+    </div>
+    <form action="/creator/saveEvent" method="post">
+        <input name="sceneId" value="@Model.SceneId" hidden readonly />
+        @if (Model.EventChoice.GenerationNumber != null)
+        {
+            <input name="generationNumber" value="@Model.EventChoice.GenerationNumber" hidden readonly />
+        }
+        else
+        {
+            <input name="generationNumber" value=null hidden readonly />
+        }
+        @if (Model.EventChoice.EventChoiceId > 0)
+        {
+            <input name="eventId" value="@Model.EventChoice.EventChoiceId" hidden readonly />
+        }
+        else
+        {
+            <input name="eventId" value="0" hidden readonly />
+        }
+        @if (Model.PositiveOutcome.OutcomeId > 0)
+        {
+            <input name="positiveOutcomeId" value="@Model.PositiveOutcome.OutcomeId" hidden readonly />
+        }
+        else
+        {
+            <input name="positiveOutcomeId" value="0" hidden readonly />
+        }
+        @if (Model.NegativeOutcome.OutcomeId > 0)
+        {
+            <input name="negativeOutcomeId" value="@Model.NegativeOutcome.OutcomeId" hidden readonly />
+        }
+        else
+        {
+            <input name="negativeOutcomeId" value="0" hidden readonly />
+        }
+        <div class="form-row justify-content-center">
+            <label>Event Name</label>
+        </div>
+        <div class="form-row justify-content-center">
+            @if (Model.EventChoice.EventName != null)
+            {
+                <input type="text" name="eventName" class="form-control" value="@Model.EventChoice.EventName" required>
+            }
+            else
+            {
+                <input type="text" name="eventName" class="form-control" required>
+            }
+        </div>
+        <div class="form-row justify-content-center">
+            <label>Starting Text</label>
+        </div>
+        <div class="form-row justify-content-center">
+            @if (Model.EventChoice.StartText != null)
+            {
+                <textarea name="startText" class="eventStartTextArea" required>@Model.EventChoice.StartText</textarea>
+            }
+            else
+            {
+                <textarea name="startText" class="eventStartTextArea" required></textarea>
+            }
+        </div>
+        <div class="form-row justify-content-center">
+            <label>Event Image (optional)</label>
+        </div>
+        <div class="form-row justify-content-center">
+            @if (Model.EventChoice.ImgUrl != null)
+            {
+                <input type="text" name="imgUrl" class="form-control" value="@Model.EventChoice.ImgUrl">
+            }
+            else
+            {
+                <input type="text" name="imgUrl" class="form-control">
+            }
+        </div>
+        <div class="form-row">
+            <div class="form-group col">
+                <div class="form-row justify-content-center">
+                    <label>Positive Text</label>
+                </div>
+                <div class="form-row justify-content-center">
+                    @if (Model.EventChoice.PositiveText != null)
+                    {
+                        <textarea name="positiveText" class="eventTextArea" required>@Model.EventChoice.PositiveText</textarea>
+                    }
+                    else
+                    {
+                        <textarea name="positiveText" class="eventTextArea" required></textarea>
+                    }
+                </div>
+            </div>
+            <div class="form-group col">
+                <div class="form-row justify-content-center">
+                    <label>Negative Text</label>
+                </div>
+                <div class="form-row justify-content-center">
+                    @if (Model.EventChoice.NegativeText != null)
+                    {
+                        <textarea name="negativeText" class="eventTextArea" required>@Model.EventChoice.NegativeText</textarea>
+                    }
+                    else
+                    {
+                        <textarea name="negativeText" class="eventTextArea" required></textarea>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col">
+                <div class="form-row justify-content-center">
+                    <label>Positive Button Text</label>
+                </div>
+                <div class="form-row justify-content-center">
+                    @if (Model.EventChoice.PositiveButton != null)
+                    {
+                        <input type="text" name="positiveButton" class="form-control" value="@Model.EventChoice.PositiveButton" required>
+                    }
+                    else
+                    {
+                        <input type="text" name="positiveButton" class="form-control" required>
+                    }
+                </div>
+            </div>
+            <div class="form-group col">
+                <div class="form-row justify-content-center">
+                    <label>Negative Button Text</label>
+                </div>
+                <div class="form-row justify-content-center">
+                    @if (Model.EventChoice.NegativeButton != null)
+                    {
+                        <input type="text" name="negativeButton" class="form-control" value="@Model.EventChoice.NegativeButton" required>
+                    }
+                    else
+                    {
+                        <input type="text" name="negativeButton" class="form-control" required>
+                    }
+                </div>
+            </div>
+        </div>
+        @if (Model.EventChoice.GenerationNumber != null)
+        {
+            <div class="form-row">
+                <div class="form-group col">
+                    <div class="form-row justify-content-center">
+                        <label>Positive Transition Type</label>
+                    </div>
+                    <div class="form-row justify-content-center">
+                        <select name="pTransType" id="pTransType" class="form-control" required>
+                            <option selected disabled>Choose A Transition</option>
+                            <option value="eventChoice">Choice Event</option>
+                            <option value="scene">Scene</option>
+                            <option value="ending">Ending</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group col">
+                    <div class="form-row justify-content-center">
+                        <label>Negative Transition Type</label>
+                    </div>
+                    <div class="form-row justify-content-center">
+                        <select name="nTransType" id="nTransType" class="form-control" required>
+                            <option selected disabled>Choose A Transition</option>
+                            <option value="eventChoice">Choice Event</option>
+                            <option value="scene">Scene</option>
+                            <option value="ending">Ending</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col">
+                    <div class="form-row justify-content-center">
+                        <label>Positive Event Route</label>
+                    </div>
+                    <div class="form-row justify-content-center">
+                        <select name="positiveRoute" id="positiveRoute" class="form-control" disabled>
+                            @if (Model.EventChoice.PositiveRoute == null)
+                            {
+                                <option value="-1" selected disabled>Choose A Transition</option>
+                            }
+                            else
+                            {
+                                <option value="-1" disabled>Choose A Transition</option>
+                            }
+                            @foreach (var r in Model.AvailableChoices)
+                            {
+                                if (r.EventChoiceId == Model.EventChoice.PositiveRoute && r.EventChoiceId != Model.EventChoice.EventChoiceId)
+                                {
+                                    <option value="@r.EventChoiceId" selected>@r.EventName</option>
+                                }
+                                else if (r.GenerationNumber != 0)
+                                {
+                                    <option value="@r.EventChoiceId">@r.EventName</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group col">
+                    <div class="form-row justify-content-center">
+                        <label>Negative Event Route</label>
+                    </div>
+                    <div class="form-row justify-content-center">
+                        <select name="negativeRoute" id="negativeRoute" class="form-control" disabled>
+                            @if (Model.EventChoice.NegativeRoute == null)
+                            {
+                                <option value="-1" selected disabled>Choose A Transition</option>
+                            }
+                            else
+                            {
+                                <option value="-1" disabled>Choose A Transition</option>
+                            }
+                            @foreach (var r in Model.AvailableChoices)
+                            {
+                                if (r.EventChoiceId == Model.EventChoice.NegativeRoute && r.EventChoiceId != Model.EventChoice.EventChoiceId)
+                                {
+                                    <option value="@r.EventChoiceId" selected>@r.EventName</option>
+                                }
+                                else if (r.GenerationNumber != 0)
+                                {
+                                    <option value="@r.EventChoiceId">@r.EventName</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col">
+                    <div class="form-row justify-content-center">
+                        <label>Positive Scene Route</label>
+                    </div>
+                    <div class="form-row justify-content-center">
+                        <select name="positiveSceneRoute" id="positiveSceneRoute" class="form-control" disabled>
+                            @if (Model.EventChoice.PositiveSceneRoute == null)
+                            {
+                                <option value="-1" selected disabled>Choose A Transition</option>
+                            }
+                            else
+                            {
+                                <option value="-1" disabled>Choose A Transition</option>
+                            }
+                            @foreach (var r in Model.GameScenes)
+                            {
+                                if (r.SceneId == Model.EventChoice.PositiveSceneRoute)
+                                {
+                                    <option value="@r.SceneId" selected>@r.SceneName</option>
+                                }
+                                else
+                                {
+                                    <option value="@r.SceneId">@r.SceneName</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group col">
+                    <div class="form-row justify-content-center">
+                        <label>Negative Scene Route</label>
+                    </div>
+                    <div class="form-row justify-content-center">
+                        <select name="negativeSceneRoute" id="negativeSceneRoute" class="form-control" disabled>
+                            @if (Model.EventChoice.NegativeSceneRoute == null)
+                            {
+                                <option value="-1" selected disabled>Choose A Transition</option>
+                            }
+                            else
+                            {
+                                <option value="-1" disabled>Choose A Transition</option>
+                            }
+                            @foreach (var r in Model.GameScenes)
+                            {
+                                if (r.SceneId == Model.EventChoice.NegativeSceneRoute)
+                                {
+                                    <option value="@r.SceneId" selected>@r.SceneName</option>
+                                }
+                                else
+                                {
+                                    <option value="@r.SceneId">@r.SceneName</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="form-row">
+                <div class="form-group col">
+                    <div class="form-row justify-content-center">
+                        <label>Positive Ending Route</label>
+                    </div>
+                    <div class="form-row justify-content-center">
+                        <select name="positiveEndingId" id="positiveEndingId" class="form-control" disabled>
+                            @if (Model.EventChoice.PositiveEndingId == null)
+                            {
+                                <option value="-1" selected disabled>Choose A Transition</option>
+                            }
+                            else
+                            {
+                                <option value="-1" disabled>Choose A Transition</option>
+                            }
+                            @foreach (var e in Model.GameEndings)
+                            {
+                                if (e.EndingId == Model.EventChoice.PositiveEndingId)
+                                {
+                                    <option value="@e.EndingId" selected>@e.EndingName</option>
+                                }
+                                else
+                                {
+                                    <option value="@e.EndingId">@e.EndingName</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group col">
+                    <div class="form-row justify-content-center">
+                        <label>Negative Ending Route</label>
+                    </div>
+                    <div class="form-row justify-content-center">
+                        <select name="negativeEndingId" id="negativeEndingId" class="form-control" disabled>
+                            @if (Model.EventChoice.NegativeEndingId == null)
+                            {
+                                <option value="-1" selected disabled>Choose A Transition</option>
+                            }
+                            else
+                            {
+                                <option value="-1" disabled>Choose A Transition</option>
+                            }
+                            @foreach (var e in Model.GameEndings)
+                            {
+                                if (e.EndingId == Model.EventChoice.NegativeEndingId)
+                                {
+                                    <option value="@e.EndingId" selected>@e.EndingName</option>
+                                }
+                                else
+                                {
+                                    <option value="@e.EndingId">@e.EndingName</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-row justify-content-center">
+                Outcome Results - Optional
+            </div>
+            <div class="form-row justify-content-center">
+                <div class="form-group col">
+                    <div class="form-row justify-content-center">
+                        <label>Positive Outcome Effects</label>
+                    </div>
+                    <div class="form-row justify-content-end" style="padding-right:200px">
+                        <label style="padding-right:5px; padding-top:5px">Health Change:</label>
+                        <input type="number" name="positiveHealth" class="verticalSpaced" value="@Model.PositiveOutcome.Health">
+                    </div>
+                    <div class="form-row justify-content-end" style="padding-right:200px">
+                        <label style="padding-right:5px; padding-top:5px">Gold Change:</label>
+                        <input type="number" name="positiveGold" class="verticalSpaced" value="@Model.PositiveOutcome.Gold">
+                    </div>
+                </div>
+                <div class="form-group col">
+                    <div class="form-row justify-content-center">
+                        <label>Negative Outcome Effects</label>
+                    </div>
+                    <div class="form-row justify-content-end" style="padding-right:200px">
+                        <label style="padding-right:5px; padding-top:5px">Health Change:</label>
+                        <input type="number" name="negativeHealth" class="verticalSpaced" value="@Model.NegativeOutcome.Health">
+                    </div>
+                    <div class="form-row justify-content-end" style="padding-right:200px">
+                        <label style="padding-right:5px; padding-top:5px">Gold Change:</label>
+                        <input type="number" name="negativeGold" class="verticalSpaced" value="@Model.NegativeOutcome.Gold">
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="form-row justify-content-center">
+                Connect a parent event to be able to select where this event will go.
+            </div>
+        }
+            <div class="form-row justify-content-center">
+
+                <a class="btn btn-danger btnForm" href="/Creator/EditGeneration/@Model.SceneId">Cancel</a>
+                <button class="btn btn-primary btnForm" type="submit">Save Event</button>
+            </div>
+    </form>
+</div>
+
+@section scripts{
+    <script>
+
+        if (document.getElementById('positiveEndingId').value >= '1') {
+            document.getElementById('pTransType').value = 'ending'
+            document.getElementById('positiveRoute').setAttribute('disabled', true);
+            document.getElementById('positiveRoute').value = '-1';
+            document.getElementById('positiveSceneRoute').setAttribute('disabled', true);
+            document.getElementById('positiveSceneRoute').value = "-1";
+            document.getElementById('positiveEndingId').removeAttribute('disabled');
+        } else if (document.getElementById('positiveSceneRoute').value >= '1') {
+            document.getElementById('pTransType').value = 'scene'
+            document.getElementById('positiveRoute').setAttribute('disabled', true);
+            document.getElementById('positiveRoute').value = '-1';
+            document.getElementById('positiveSceneRoute').removeAttribute('disabled');
+            document.getElementById('positiveEndingId').setAttribute('disabled', true);
+            document.getElementById('positiveEndingId').value = "-1";
+        } else if (document.getElementById('positiveRoute').value >= '1') {
+            document.getElementById('pTransType').value = 'eventChoice'
+            document.getElementById('positiveRoute').removeAttribute('disabled');
+            document.getElementById('positiveSceneRoute').setAttribute('disabled', true);
+            document.getElementById('positiveSceneRoute').value = "-1";
+            document.getElementById('positiveEndingId').setAttribute('disabled', true);
+            document.getElementById('positiveEndingId').value = "-1";
+        }
+
+        if (document.getElementById('negativeEndingId').value >= '1') {
+            document.getElementById('nTransType').value = 'ending'
+            document.getElementById('negativeRoute').setAttribute('disabled', true);
+            document.getElementById('negativeRoute').value = '-1';
+            document.getElementById('negativeSceneRoute').setAttribute('disabled', true);
+            document.getElementById('negativeSceneRoute').value = "-1";
+            document.getElementById('negativeEndingId').removeAttribute('disabled');
+        } else if (document.getElementById('negativeSceneRoute').value >= '1') {
+            document.getElementById('nTransType').value = 'scene'
+            document.getElementById('negativeRoute').setAttribute('disabled', true);
+            document.getElementById('negativeRoute').value = '-1';
+            document.getElementById('negativeSceneRoute').removeAttribute('disabled');
+            document.getElementById('negativeEndingId').setAttribute('disabled', true);
+            document.getElementById('negativeEndingId').value = "-1";
+        } else if (document.getElementById('negativeRoute').value >= '1') {
+            document.getElementById('nTransType').value = 'eventChoice'
+            document.getElementById('negativeRoute').removeAttribute('disabled');
+            document.getElementById('negativeSceneRoute').setAttribute('disabled', true);
+            document.getElementById('negativeSceneRoute').value = "-1";
+            document.getElementById('negativeEndingId').setAttribute('disabled', true);
+            document.getElementById('negativeEndingId').value = "-1";
+        }
+
+        document.getElementById('pTransType').onchange = function () {
+            if (this.value == 'eventChoice') {
+                document.getElementById('positiveRoute').removeAttribute('disabled');
+                document.getElementById('positiveRoute').value = '-1';
+                document.getElementById('positiveSceneRoute').setAttribute('disabled', true);
+                document.getElementById('positiveSceneRoute').value = "-1";
+                document.getElementById('positiveEndingId').setAttribute('disabled', true);
+                document.getElementById('positiveEndingId').value = "-1";
+            }
+            else if (this.value == 'scene') {
+                document.getElementById('positiveRoute').setAttribute('disabled', true);
+                document.getElementById('positiveRoute').value = '-1';
+                document.getElementById('positiveSceneRoute').removeAttribute('disabled');
+                document.getElementById('positiveSceneRoute').value = '-1';
+                document.getElementById('positiveEndingId').setAttribute('disabled', true);
+                document.getElementById('positiveEndingId').value = "-1";
+            }
+            else if (this.value == 'ending') {
+                document.getElementById('positiveRoute').setAttribute('disabled', true);
+                document.getElementById('positiveRoute').value = '-1';
+                document.getElementById('positiveSceneRoute').setAttribute('disabled', true);
+                document.getElementById('positiveSceneRoute').value = "-1";
+                document.getElementById('positiveEndingId').removeAttribute('disabled');
+                document.getElementById('positiveEndingId').value = '-1';
+            }
+            else {
+                document.getElementById('positiveRoute').setAttribute('disabled', true);
+                document.getElementById('positiveRoute').value = '-1';
+                document.getElementById('positiveSceneRoute').setAttribute('disabled', true);
+                document.getElementById('positiveSceneRoute').value = "-1";
+                document.getElementById('positiveEndingId').setAttribute('disabled', true);
+                document.getElementById('positiveEndingId').value = "-1";
+            }
+        }
+        document.getElementById('nTransType').onchange = function () {
+            if (this.value == 'eventChoice') {
+                document.getElementById('negativeRoute').removeAttribute('disabled');
+                document.getElementById('negativeRoute').value = '-1';
+                document.getElementById('negativeSceneRoute').setAttribute('disabled', true);
+                document.getElementById('negativeSceneRoute').value = "-1";
+                document.getElementById('negativeEndingId').setAttribute('disabled', true);
+                document.getElementById('negativeEndingId').value = "-1";
+            }
+            else if (this.value == 'scene') {
+                document.getElementById('negativeRoute').setAttribute('disabled', true);
+                document.getElementById('negativeRoute').value = '-1';
+                document.getElementById('negativeSceneRoute').removeAttribute('disabled');
+                document.getElementById('negativeSceneRoute').value = '-1';
+                document.getElementById('negativeEndingId').setAttribute('disabled', true);
+                document.getElementById('negativeEndingId').value = "-1";
+            }
+            else if (this.value == 'ending') {
+                document.getElementById('negativeRoute').setAttribute('disabled', true);
+                document.getElementById('negativeRoute').value = '-1';
+                document.getElementById('negativeSceneRoute').setAttribute('disabled', true);
+                document.getElementById('negativeSceneRoute').value = "-1";
+                document.getElementById('negativeEndingId').removeAttribute('disabled');
+                document.getElementById('negativeEndingId').value = '-1';
+            }
+            else {
+                document.getElementById('negativeRoute').setAttribute('disabled', true);
+                document.getElementById('negativeRoute').value = '-1';
+                document.getElementById('negativeSceneRoute').setAttribute('disabled', true);
+                document.getElementById('negativeSceneRoute').value = "-1";
+                document.getElementById('negativeEndingId').setAttribute('disabled', true);
+                document.getElementById('negativeEndingId').value = "-1";
+            }
+        }
+    </script>
+}

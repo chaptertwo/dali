@@ -1,0 +1,10 @@
+﻿
+@{
+    ViewBag.Title = "Main Menu";
+}
+
+<h2 class="poiretFont">Main Menu</h2>
+<div style="text-align:center">
+    <a href="/Gameplay/NewGame" class="btn btn-outline-primary">New Game</a>
+    @Html.ActionLink("Load Game", "LoadGame", "Home", new { @class = "btn btn-outline-primary" })
+</div>

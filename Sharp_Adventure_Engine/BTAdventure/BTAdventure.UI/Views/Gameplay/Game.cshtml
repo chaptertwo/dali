@@ -1,0 +1,224 @@
+﻿@model BTAdventure.UI.Models.GameSceneVM
+@{
+    ViewBag.Title = "Main Game";
+}
+
+
+
+<div class="container-fluid" id="book">
+    <div class="row" style="margin-top:-55px; margin-bottom:25px">
+        <div class="col-md-4">
+            <div class="card-body cinzelfont" style="max-width:200px; max-height:80px; vertical-align:central; padding-top:-20px; padding-right:50px; font-size:larger; "><br/>
+            <span style="text-decoration:underline;">Health: <span id="health">@Model.PlayerCharacter.HealthPoints</span></span>
+            <span>Gold: <span id="gold">@Model.PlayerCharacter.Gold</span></span></div>
+        </div>
+        <div class="col-md-4">
+            
+        </div>
+        <div class="col-md-4">
+        </div>
+    </div>
+
+    <div id="bookPic" class="row">
+        <div class="col-lg-12">
+            <div >
+                <img class="gameImage" style="display:none" id="storyPicture" alt="storyPicture" src="@Model.EventChoice.ImgUrl" />
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div  class="col-md-12" style="text-align:center"><br/>
+            <input type="hidden" id="characterId" value="@Model.PlayerCharacter.CharacterId">
+            <input type="hidden" id="eventChoiceId" value="@Model.EventChoice.EventChoiceId">
+            <div class="muliFont">
+                <p style="text-align:center; font-size:x-large; display:none;" id="startText">'@Model.EventChoice.StartText'</p>
+
+                <div style="max-width:100%; align-items:center;">
+                    <p id="positiveText"><p id="positiveParagraph" style="text-align:center; display:none;" class="wireframe">
+                        '@Model.EventChoice.PositiveText''
+                    </p>
+                    <button class="btn btn-outline-secondary" id="positiveContinue" style="display:none; text-align:center">Continue</button>
+                </div>
+
+                <div style="max-width:100%; align-items:center;">
+                    <p id="negativeText"><p id="negativeParagraph" style="text-align:center; display:none;" class="wireframe">
+                        '@Model.EventChoice.NegativeText''
+                </div>
+                <button class="btn btn-outline-secondary" id="negativeContinue" style="display:none">Continue</button></p>
+
+            </div>
+            <p id="endingText"><p id="endingParagraph" style="text-align:center; display:none" class="wireframe"></p>
+            </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <button type="button" id="positiveButton" class="goodChoiceButton" onclick="OpenPositiveResponse();">@Model.EventChoice.PositiveButton</button>
+        </div>
+
+        <div class="col-md-6">
+            <button type="button" id="negativeButton" class="badChoiceButton" onclick="OpenNegativeResponse();">@Model.EventChoice.NegativeButton</button>
+        </div>
+    </div>
+
+</div>
+
+
+
+<script>
+    $(document).ready(function () {
+
+        $("#startText").fadeIn(4200);
+        $("#storyPicture").fadeIn(3000);
+    });
+
+    function OpenPositiveResponse() {
+        $("#positiveText").fadeIn("slow").css("display", "inline-block");
+        $("#positiveParagraph").fadeIn(1000).css("display", "inline-block");
+        $("#positiveContinue").fadeIn("slow").css("display", "inline-block");
+        //$("#negativeButton").prop("onclick", null).off("click");
+        $("#negativeButton").prop('disabled', true);
+        
+    };
+
+    function OpenNegativeResponse() {
+        $("#negativeText").fadeIn("slow").css("display", "inline-block");
+        $("#negativeParagraph").fadeIn(1000).css("display", "inline-block");
+        $("#negativeContinue").fadeIn("slow").css("display", "inline-block");
+        //$("#positiveButton").prop("onclick", null).off("click");
+        $("#positiveButton").prop('disabled', true);
+
+    };
+
+    var baseUrl = "http://localhost:49340/api/game/";
+
+
+    function xhrFail(xhr, status, err) {
+        console.log(xhr, status, err);
+    }
+
+
+    $("#positiveContinue").click(function () {
+        
+        var choiceObject = {
+            CharacterId: $("#characterId").val(),
+            EventChoiceId: $("#eventChoiceId").val(),
+            PositiveOrNegative: true
+        };
+        var url = baseUrl;
+        var type = "POST";
+
+        $.ajax({
+            url: url,
+            type: type,
+            cache: false,
+            data: JSON.stringify(choiceObject),
+
+            contentType: "application/json"
+        }).done(function (data, status) {
+            if (data.IsEnding == true) {
+                window.location = "/Gameplay/Ending/" + data.Ending.EndingId;
+            }
+            if (data.PlayerCharacter.HealthPoints <= 0 || data.PlayerCharacter == null) {
+                window.location = "/Gameplay/HealthDepletedEnding/"
+            }
+            if (data.IsValidGame == false) {
+                window.location = "/Gameplay/Error/";
+            }
+
+            
+            $("#positiveButton").prop('disabled', false);
+            $("#negativeButton").prop('disabled', false);
+
+            document.getElementById("health").innerText = '' + data.PlayerCharacter.HealthPoints + '';
+            document.getElementById("gold").innerText = '' + data.PlayerCharacter.Gold + '';
+
+
+            //$("#storyPicture").fadeOut(5000);
+            document.getElementById("storyPicture").src = '' + data.EventChoice.ImgUrl + '';
+            //$("#storyPicture").fadeIn(2500);
+            document.getElementById("startText").innerText = '' + data.EventChoice.StartText + '';
+
+
+            document.getElementById("positiveButton").innerText = '' + data.EventChoice.PositiveButton + '';
+            document.getElementById("negativeButton").innerText = '' + data.EventChoice.NegativeButton + '';
+            document.getElementById("positiveParagraph").innerText = '' + data.EventChoice.PositiveText + '';
+            document.getElementById("negativeParagraph").innerText = '' + data.EventChoice.NegativeText + '';
+            document.getElementById("eventChoiceId").value = '' + data.EventChoice.EventChoiceId + '';
+
+            document.getElementById("positiveText").style.display = "none"
+            document.getElementById("positiveParagraph").style.display = "none"
+            document.getElementById("positiveContinue").style.display = "none"
+
+        }).fail(xhrFail);
+    });
+
+
+    $("#negativeContinue").click(function () {
+
+        var choiceObject = {
+            CharacterId: $("#characterId").val(),
+            EventChoiceId: $("#eventChoiceId").val(),
+            PositiveOrNegative: false
+        };
+        var url = baseUrl;
+        var type = "POST";
+
+
+        $.ajax({
+            url: url,
+            type: type,
+            cache: false,
+            data: JSON.stringify(choiceObject),
+  
+            contentType: "application/json"
+        }).done(function (data, status) {
+            if (data.IsEnding == true) {
+                window.location = "/Gameplay/Ending/" + data.Ending.EndingId;
+            }
+            if (data.PlayerCharacter.HealthPoints <= 0) {
+                window.location = "/Gameplay/HealthDepletedEnding/"
+            }
+            if (data.IsValidGame == false) {
+                window.location = "/Gameplay/Error/";
+            }
+
+            //$("#negativeButton").on("click", function () {
+            //    OpenNegativeResponse();
+            //});
+            //$("#positiveButton").on("click", function () {
+            //    OpenNegativeResponse();
+            //});
+            $("#positiveButton").prop('disabled', false);
+            $("#negativeButton").prop('disabled', false);
+
+            document.getElementById("health").innerText = '' + data.PlayerCharacter.HealthPoints + '';
+            document.getElementById("gold").innerText = '' + data.PlayerCharacter.Gold + '';
+
+            //$("#storyPicture").fadeOut(5000);
+            document.getElementById("storyPicture").src = '' + data.EventChoice.ImgUrl + '';
+            //$("#storyPicture").fadeIn(2500);
+
+            document.getElementById("startText").innerText = '' + data.EventChoice.StartText + '';
+            document.getElementById("positiveButton").innerText = '' + data.EventChoice.PositiveButton + '';
+            document.getElementById("negativeButton").innerText = '' + data.EventChoice.NegativeButton + '';
+            document.getElementById("positiveParagraph").innerText = '' + data.EventChoice.PositiveText + '';
+            document.getElementById("negativeParagraph").innerText = '' + data.EventChoice.NegativeText + '';
+            document.getElementById("eventChoiceId").value = '' + data.EventChoice.EventChoiceId + '';
+
+            document.getElementById("negativeText").style.display = "none"
+            document.getElementById("negativeParagraph").style.display = "none"
+            document.getElementById("negativeContinue").style.display = "none"
+
+        }).fail(xhrFail);
+    });
+
+
+    function ShowHiddenStats() {
+        $("hiddenStats").toggleClass('hidden');
+    }
+
+</script>
+

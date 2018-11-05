@@ -1,0 +1,18 @@
+﻿@model BTAdventure.Models.Scene
+@{
+    ViewBag.Title = "DeleteScene";
+}
+
+<h2>DeleteScene</h2>
+<hr />
+@using (Html.BeginForm("DeleteScene","Creator",FormMethod.Post))
+{
+    <input type="hidden" name="SceneId" value="@Model.SceneId" />
+    <input type="hidden" name="GameId" value="@Model.GameId" />
+
+    <p>Are you sure you want to delete scene @Model.SceneName?</p>
+    <button type="submit" class = "btn btn-primary" >Yes</button>
+
+}
+
+@Html.ActionLink("No", "Index", null, new { @class = "btn btn-primary" })

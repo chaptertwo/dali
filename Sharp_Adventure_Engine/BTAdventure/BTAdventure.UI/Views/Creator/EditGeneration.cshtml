@@ -1,0 +1,109 @@
+﻿@model BTAdventure.UI.Models.EditGenerationVM
+@{
+    ViewBag.Title = "EditGeneration";
+}
+<div class="row">
+    <h2>Edit Scene Events</h2>
+    <hr />
+</div>
+
+<div class="row">
+    @Html.ActionLink("Scene Settings", "CreateOrEditScene", new { sceneId = ViewBag.SceneId, gameId = ViewBag.GameId }, new { @class = "btn btn-primary creatorGuidance" })
+    @*<button>Edit Scene Title</button>*@
+    @*<button>Create New Event</button>*@
+    @using (Html.BeginForm("EditSceneEventChoice", "Creator", FormMethod.Post))
+    {
+        <input name="SceneId" type="hidden" value="@ViewBag.SceneId " />
+        <button class="btn btn-primary creatorGuidance">Create New Event</button>
+        <a class="btn btn-danger creatorGuidance" href="/Creator/SceneMain/@ViewBag.GameId">Back</a>
+    }
+</div>
+<hr />
+<div class="row">
+    <h4>Events: @ViewBag.sceneTitle</h4>
+</div>
+
+<div class="row">
+    
+
+    @if (Model.AllEventByScene.Any())
+    {
+
+        if (Model.AllEventByScene.Any())
+        {
+
+
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Scene Id</th>
+                        <th>Event Id</th>
+                        <th>Generation Id</th>
+                        <th>Event Name</th>
+                        <th>Positvie Route Id</th>
+                        <th>Negative Route Id</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var a in Model.AllEventByScene)
+                    {
+                        <tr>
+                            <td>@a.SceneId</td>
+                            <td>@a.EventChoiceId</td>
+                            <td>@a.GenerationNumber</td>
+                            <td>@a.EventName</td>
+                            <td>@(a.PositiveRoute.HasValue ? a.PositiveRoute.ToString() : "No Postive Route")</td>
+                            <td>@(a.NegativeRoute.HasValue ? a.NegativeRoute.ToString() : "No Negative Route")</td>
+                            <td>
+                                @using (Html.BeginForm("EditSceneEventChoice", "Creator", FormMethod.Post))
+                                {
+                                    <input name="SceneId" type="hidden" value="@a.SceneId" />
+                                    <input name="EventId" type="hidden" value="@a.EventChoiceId" />
+                                    <button class="btn btn-primary">Edit</button>
+                                }
+                                @if (a.GenerationNumber != 0)
+                                {
+                                    using (Html.BeginForm("DeleteEvent", "Creator", FormMethod.Post))
+                                    {
+                                        <input name="SceneId" type="hidden" value="@a.SceneId" />
+                                        <input name="EventId" type="hidden" value="@a.EventChoiceId" />
+                                        <button class="btn btn-danger">Delete</button>
+                                    }
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+
+            </table>
+        }
+        else
+        {
+            <text>No existing Event</text>
+        }
+
+
+        @*<div class="row">
+                @Model.CurrentEvent.EventChoiceId;
+                <br />
+                Start Event:
+                <br />
+                <input placeholder="EventName" value="@Model.CurrentEvent.EventName" />
+            </div>
+
+            <div class="row">
+                <div>
+                    Positive: @Model.CurrentEvent.PositiveRoute
+                </div>
+                <div>
+                    Negative: @Model.CurrentEvent.NegativeRoute
+                </div>
+            </div>*@
+    }
+    else
+    {
+            <text>No Event Found</text>
+
+    }
+</div>

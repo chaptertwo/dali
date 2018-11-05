@@ -1,0 +1,15 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2 class="text-center">Creator Home</h2>
+<hr />
+<div class="text-center">
+    @Html.ActionLink("New Game", "NewOrEditGame", null, new { @class = "btn btn-primary verticalSpaced navCustButton" })
+</div>
+<div class="text-center">
+    @Html.ActionLink("Edit Game", "EditGame", null, new { @class = "btn btn-primary verticalSpaced navCustButton" })
+</div>
+@*<a href="NewOreditGame" class="btn btn-primary">Create New Game</a>*@
+@*<a href="EditGame" class="btn btn-primary">Edit Game</a>*@

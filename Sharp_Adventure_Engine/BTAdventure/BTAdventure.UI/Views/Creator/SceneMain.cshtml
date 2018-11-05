@@ -1,0 +1,63 @@
+﻿@model IEnumerable<BTAdventure.Models.Scene>
+@{
+    ViewBag.Title = "SceneMain";
+}
+
+<div class="row">
+    <h2>SceneMain</h2>
+    <hr />
+</div>
+
+<div class="row">
+    @Html.ActionLink("Edit Game", "NewOrEditGame", new { Id = ViewBag.gameId }, new { @class = "btn btn-primary creatorGuidance" })
+    @Html.ActionLink("New Ending", "NewEnding", "Creator", new { gameId = ViewBag.GameId }, new { @class = "btn btn-primary creatorGuidance" })
+    @Html.ActionLink("Edit Ending", "EditEnding", "Creator", new { gameId = ViewBag.GameId }, new { @class = "btn btn-primary creatorGuidance" })
+    @Html.ActionLink("Back", "EditGame", "Creator", new { }, new { @class = "btn btn-danger creatorGuidance" })
+</div>
+<div class="row">
+    Game Name: @ViewBag.GameTitle
+</div>
+<div class="row">
+    @if (Model.Any())
+    {
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Scene Id</th>
+                    <th>Scene Name</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Any())
+                {
+                    foreach (var a in Model)
+                    {
+                        <tr>
+                            <td>@a.SceneId</td>
+                            <td>@a.SceneName</td>
+                            <td>
+                                @Html.ActionLink("Edit", "EditGeneration", "Creator", new { id = a.SceneId }, new { @class = "btn btn-primary" })
+                                @*<a href="CreateOrEditScene\@a.SceneId" class="btn btn-primary">Edit</a>*@
+                                @*<a href="#" class="btn btn-danger">Delete</a>*@
+                                @Html.ActionLink("Delete", "DeleteScene", "Creator", new { id = a.SceneId }, new { @class = "btn btn-primary" })
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+
+        </table>
+    }
+    else
+    {
+        <text>No existing scene</text>
+    }
+</div>
+
+<div class="row">
+    @*<a href="CreateOrEditScene\1" class="btn btn-primary">Create New Scene</a>*@
+    @Html.ActionLink("Create New Scene", "CreateOrEditScene", "Creator",new {gameId = ViewBag.GameId }, new { @class="btn btn-primary"})
+</div>
+

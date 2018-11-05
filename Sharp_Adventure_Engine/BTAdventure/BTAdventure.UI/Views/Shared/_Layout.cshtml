@@ -1,0 +1,90 @@
+﻿@using Microsoft.AspNet.Identity
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title Sharp Adventure Engine</title>
+    @Scripts.Render("~/bundles/jquery")
+    @Styles.Render("~/Content/css")
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    @Scripts.Render("~/bundles/modernizr")
+
+    <link href="https://fonts.googleapis.com/css?family=Cinzel+Decorative|Poiret+One|Rock+Salt|Special+Elite" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Goudy+Bookletter+1911|Muli|Noto+Sans|Oswald|Rosarivo" rel="stylesheet">
+
+</head>
+<body>   
+    <nav class="navbar  justify-content-center navbarBackground2">
+        <div class="row">
+            @*<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        Hello
+        </button>*@
+            @if (Request.IsAuthenticated)
+            {
+            <div class="col-md-3 justify-content-center">
+                <a class="navbar-brand btn btn-outline-secondary nav-link text-center navCustButton verticalSpaced" href="/home/mainmenu">Home</a>
+                @if (User.IsInRole("Admin") || User.IsInRole("Creator"))
+                {
+                    <a class="nav-link btn btn-outline-secondary text-center navCustButton verticalSpaced" href="/Creator/Index">Creator Index</a>
+                    <a class="nav-link btn btn-outline-secondary text-center navCustButton verticalSpaced" href="/Creator/EditGame">Edit Game</a>
+                }
+            </div>
+                <div class="col-md-6 text-center customHeader navbarFontSize">
+                    Sharp Adventure Engine
+                </div>
+                <div class="col-md-3 text-center">
+                    <text class="nav-link text-center navCustButton verticalSpaced" style="box-shadow:none;" href="#">Hello @User.Identity.GetUserName()! <span class="sr-only">(current)</span></text>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <a class="nav-link btn btn-outline-secondary text-center navCustButton verticalSpaced" href="/Account/UserCommandCentre">Manage Account!</a>
+                    }
+                    @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "" }))
+                    {
+                        @Html.AntiForgeryToken()
+
+                        @*<a href="javascript:document.getElementById('logoutForm').submit()" class="nav-item nav-mr-auto mt-2 mt-lg-0">Log off</a>*@
+                        <button class="nav-link btn btn-outline-secondary text-center navCustButton verticalSpaced" type="submit">Log Off</button>
+
+                    }
+                </div>
+            }
+            else
+            {
+                <div class="col-md-3">
+                </div>
+                <div class="col-md-6 text-center customHeader navbarFontSize">
+                    Sharp Adventure Engine
+                </div>
+                <div class="col-md-3">
+                    <div class="nav-item">
+                        <a class="nav-link text-center navCustButton verticalSpaced" href="/Account/Login">Login</a>
+                    </div>
+
+                    <div class="nav-item">
+                        <a class="nav-link text-center navCustButton verticalSpaced" href="/Account/Register">Register</a>
+                    </div>
+                </div>
+            }
+
+        </div>  
+    </nav>
+
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+
+    </div>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

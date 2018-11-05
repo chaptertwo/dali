@@ -1,0 +1,34 @@
+﻿@model BTAdventure.Models.Scene
+@{
+    ViewBag.Title = "CreateOrEditScene";
+}
+
+<h2>CreateOrEditScene</h2>
+<hr />
+
+@using (Html.BeginForm("CreateOrEditScene", "Creator", FormMethod.Post))
+{
+    Html.HiddenFor(m => m.SceneId);
+    Html.HiddenFor(m => m.GameId);
+    <input type="hidden" name="SceneId" value="@Model.SceneId" />
+    <input type="hidden" name="GameId" value="@Model.GameId" />
+    <div class="form-row">
+        <label class="font-weight-bold">Scene Name:</label>
+        <input placeholder="Scene Name Goes Here" value="@Model.SceneName" name="SceneName" required/>
+
+    </div>
+    <div class="form-row">
+        <Label>Is Starting Scene: </Label>
+        @if (Model.IsStart)
+        {
+            <input type="checkbox" class="singleCheck" value="true" name="isStart" checked>
+        }
+        else
+        {
+            <input type="checkbox" class="singleCheck" value="true" name="isStart" >
+        }
+    </div>
+    <a class="btn btn-danger btnForm" href="/Creator/EditGeneration/@Model.SceneId">Cancel</a>
+    <button class="btn btn-primary btnForm">Go</button>
+
+}

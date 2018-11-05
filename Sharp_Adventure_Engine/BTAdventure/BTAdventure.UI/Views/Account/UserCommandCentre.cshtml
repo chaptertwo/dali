@@ -1,0 +1,55 @@
+﻿@model IEnumerable<BTAdventure.Models.PlayerCharacter>
+
+@{
+    ViewBag.Title = "User Command Centre";
+}
+
+<h2 class="text-center">User Command Centre</h2>
+<br />
+@*@if (Model.Count() == 0)
+{
+    <div class="col ">
+        <div class="col text-center">Looks like you don't have any active games...</div>
+        <br />
+        <div class="col text-center">
+            @Html.ActionLink("Click Here To Start One!", "NewOrEditGame", "Creator", new { @class = "btn btn-success" })
+        </div>
+    </div>
+}
+
+    <div class="row text-center">
+        @using (Html.BeginForm("UserCommandCentre", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal text-center", role = "form" }))
+        {
+            if (Model.Count() > 0)
+            {
+                <div class="col text-center">
+                    @Html.DropDownListFor(m => m.First().CharacterId,
+                                Model.Select(i => new SelectListItem { Value = i.CharacterId.ToString(), Text = i.CharacterName.ToString() }),
+                                new { @class = "form-control " })
+                </div>
+
+                <div class="form-group col text-center">
+                    <input type="submit" value="Load Game" class="btn btn-info" />
+                </div>
+            }
+        }
+    </div>*@
+<br />
+<br />
+<br />
+<div class="col text-center">
+    @if (User.Identity.IsAuthenticated && User.IsInRole("User") || User.IsInRole("Creator") || User.IsInRole("Admin"))
+    {
+        @Html.ActionLink("Reset Your Password", "ResetPassword", "Account", new { @class = "btn btn-outline-primary" })
+    }
+
+    @if (User.Identity.IsAuthenticated && User.IsInRole("Creator") || User.IsInRole("Admin"))
+    {
+        
+        <a href="/Creator/Index" class="btn btn-outline-primary">Create or Edit a Game</a>
+    }
+    @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+    {
+        @Html.ActionLink("Promote and Demote Users", "AdminControlCentre", "Account", new { @class = "btn btn-outline-primary" })
+    }
+</div>

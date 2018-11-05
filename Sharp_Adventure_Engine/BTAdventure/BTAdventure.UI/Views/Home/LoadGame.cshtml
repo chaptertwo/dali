@@ -1,0 +1,50 @@
+﻿@model BTAdventure.Models.LoadGameData
+@{
+    ViewBag.Title = "Load Game";
+}
+
+<h1 class="text-center poiretFont">Load Game</h1>
+<div class="row text-center">
+    <div class="col-md-3">
+    </div>
+    <div class="col-md-6">
+        @if (Model.PlayerCharacters.Count() == 0)
+        {
+            <div class="text-center poiretFont">Looks like you don't have any active games...</div>
+        }
+        else
+        {
+            using (Html.BeginForm("LoadGame", "Home", new
+            {
+                ReturnUrl = ViewBag.ReturnUrl
+            }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                if (Model.PlayerCharacters.Count() > 0)
+                {
+                    <div class="form-row justify-content-center">
+                        @Html.DropDownListFor(m => m.PlayerCharacters.First().CharacterId,
+                        Model.PlayerCharacters.Select(i => new SelectListItem { Value = i.CharacterId.ToString(), Text = i.CharacterName.ToString() }),
+                        new { @class = "form-control verticalSpaced" })
+                    </div>
+                    <div class="form-row justify-content-center">
+                        <div class="form-group verticalSpaced">
+                            <input type="submit" value="Load Game" class="btn btn-info" />
+                        </div>
+                    </div>
+
+                }
+            }
+        }
+        <div class="col-md-3">
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3">
+    </div>
+    <div class="col-md-6 text-center">
+        @Html.ActionLink("Start A New Game Instead?", "NewGame", "Gameplay", new { id = Model.UserId }, new { @class = "btn btn-outline-primary" })
+    </div>
+    <div class="col-md-3">
+    </div>
+</div>

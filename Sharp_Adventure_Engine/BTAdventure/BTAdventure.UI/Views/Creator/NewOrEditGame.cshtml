@@ -1,0 +1,66 @@
+﻿@model BTAdventure.Models.Game
+@{
+    ViewBag.Title = "NewOrEditGame";
+}
+
+<div class="row">
+    <h2>Game Create/Edit</h2>
+    <hr />
+</div>
+@using (Html.BeginForm("SceneMain", "Creator", FormMethod.Post))
+{
+    <input type="hidden" value="@Model.GameId" name="GameId" />
+    <div class="row">
+        <h3>Game:</h3>
+    </div>
+    <div class="row">
+        <input placeholder="Name" class="form-control" value="@Model.GameTitle" name="GameTitle" required/>
+    </div>
+    <div class="row">
+        <h3>Intro:</h3>
+    </div>
+    <div class="row">
+        @Html.TextAreaFor(m => m.IntroText, new { @class = "form-control", rows = "8", required = "required" })
+    </div>
+    <div class="row">
+        <h3>Starting Health:</h3>
+    </div>
+    <div class="row">
+        @*<input placeholder="Title" value="@Model.IntroText" name="IntroText"/>*@
+        @if (Model.Health > 0)
+        {
+            @Html.TextBoxFor(m => m.Health, new { @class = "form-control", rows = "8", @type = "number", @Value = Model.Health, @min = "1" })
+        }
+        else
+        {
+            @Html.TextBoxFor(m => m.Health, new { @class = "form-control", rows = "8", @type = "number", @Value = "1", @min = "1" })
+        }
+    </div>
+    <div class="row">
+        <h3>Starting Gold:</h3>
+    </div>
+    <div class="row">
+        @*<input placeholder="Title" value="@Model.IntroText" name="IntroText"/>*@
+        @if (Model.Health > 0)
+        {
+            @Html.TextBoxFor(m => m.Gold, new { @class = "form-control", rows = "8", @type = "number", @Value = Model.Gold, @min = "0" })
+        }
+        else
+        {
+            @Html.TextBoxFor(m => m.Gold, new { @class = "form-control", rows = "8", @type = "number", @min = "0" })
+        }
+    </div>
+    <div class="row">
+        @if (Model.GameId > 0)
+        {
+            <a class="btn btn-danger btnForm" href="/Creator/SceneMain/@ViewBag.GameId">Cancel</a>
+            <button class="btn btn-primary text-center btnForm">Go</button>
+        }
+        else
+        {
+            <a class="btn btn-danger btnForm" href="/Creator/Index/">Cancel</a>
+            <button class="btn btn-primary text-center btnForm">Go</button>
+        }
+    </div>
+
+}

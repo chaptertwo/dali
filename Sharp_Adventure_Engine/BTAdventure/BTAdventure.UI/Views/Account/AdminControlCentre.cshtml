@@ -1,0 +1,25 @@
+﻿@model IEnumerable<BTAdventure.UI.Models.ApplicationUser>
+@{
+    ViewBag.Title = "AdminControlCentre";
+}
+
+<h2>Admin Control Centre</h2>
+@using (Html.BeginForm("AdminControlCentre", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div>
+
+        @Html.DropDownListFor(m => m.First().Id,
+    Model.Select(i => new SelectListItem { Value = i.Id, Text = i.Email }),
+    new { @class = "form-control" })
+
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Change to Creator" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
